@@ -6,16 +6,20 @@
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
-        "box1 box2 box2"
+        "box1 box2 box3"
         "box4 box5 box6"
         "box7 box8 box9";
-    gap: 8px;
-    padding: 30px;
-    margin: 20px;
+    gap: 10px;
+    padding: 0 200px;
+    margin: 100px 200px;
+}
+
+.box {
     background-color: cyan;
+    height: 10vw;
 }
 
 .box1 {
