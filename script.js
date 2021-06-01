@@ -1,29 +1,18 @@
-const gameBoard = {
-    gameBoardArr: ['x', 'o', 'x', 'o', 'x', 'o'],
+const gameBoard = (() => {
+    const gameObj = { gameBoardArr: ['x', 'o', 'x', 'o', 'x', 'o'] };
+    return { gameObj };
+});
+
+const displayController = (() => {
+
+});
+
+const Player = (playerName) => {
+    return { playerName };
 };
 
-const playerOne = {};
-const playerTwo = {};
+
+const playerOne = Player('Nevis');
+const playerTwo = Player('Tosman');
 const gameFlow = {};
-const player = (playerName) => {
-    // const playerObj = Object.create(playerBehaviour);
-    // playerObj.playerName = playerName;
-    // playerObj.playerLetter = playerLetter;
-    return {
-        playerName,
-        playerLetter,
-    };
-    // playerObj;
-};
 
-playerBehaviour = {
-    sayHello() {
-        return `${this.playerLetter} ${this.playerName}`;
-    }
-};
-
-// playerGoal = {
-//     score() {
-//         return sayHello;
-//     }
-// }
