@@ -8,7 +8,9 @@ const gameBoard = (() => {
                 getSquaresArr.forEach((item, index) => item.appendChild(this.gameBoardArr[index]));
             }
             getSquares.addEventListener('click', squares);
-        }
+        },
+        playerOneObj: 'playerOne',
+        playerTwoObj: 'playerTwo'
     };
     return gameObj;
 })();
