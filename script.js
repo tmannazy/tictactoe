@@ -1,29 +1,27 @@
 const gameBoard = (() => {
     const gameObj = {
         gameBoardArr: ['x', 'o', 'x', 'o', 'x', 'o'],
-        getDOM() {
-            const getSquares = document.getElementsByClassName('box');
-            const squares = () => {
-                getSquaresArr = Array.from(getSquares);
-                getSquaresArr.forEach((item, index) => item.appendChild(this.gameBoardArr[index]));
-            }
-            getSquares.addEventListener('click', squares);
-        },
-        playerOneObj: 'playerOne',
-        playerTwoObj: 'playerTwo'
     };
     return gameObj;
 })();
 
+const displayController = (() => { })();
+
 const Player = (playerName) => {
-    return { playerName };
+    const player = playerName;
+    const getSquares = document.querySelector('.game-board');
+    const cacheDOM = () => {
+        // getSquaresArr = Array.from(getSquares);
+        getSquaresArr.forEach(item => {
+            if (e.current)
+        }
+                const cacheDOM = () => {
+            getSquares.addEventListener('click', squares);
+        }
+    };
+
+    const addMark = () => {
+
+    }
+    return { player };
 };
-
-const displayController = (() => {
-    const playerOne = Player('Nevis');
-    const playerTwo = Player('Tosman');
-    return Object.assign({}, playerOne, playerTwo);
-})();
-
-
-
