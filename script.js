@@ -10,18 +10,24 @@ const displayController = (() => { })();
 const Player = (playerName) => {
     const player = playerName;
     const getSquares = document.querySelector('.game-board');
+    // const cacheDOM = () => {
+    // getSquaresArr = Array.from(getSquares);
+    // getSquaresArr.forEach(item => {
+    const squares = e => {
+        if (e.target !== e.currentTarget) {
+            e.target.appendChild(gameBoard.gameObj);
+        } e.stopPropagation();
+    };
     const cacheDOM = () => {
-        // getSquaresArr = Array.from(getSquares);
-        getSquaresArr.forEach(item => {
-            if (e.current)
-        }
-                const cacheDOM = () => {
-            getSquares.addEventListener('click', squares);
-        }
+        getSquares.addEventListener('click', squares);
     };
 
     const addMark = () => {
 
-    }
-    return { player };
+    };
+    return { player, cacheDOM };
 };
+
+const emma = Player('Emmanuel');
+
+emma.cacheDOM();
