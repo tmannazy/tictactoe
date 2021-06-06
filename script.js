@@ -7,14 +7,14 @@ const gameBoard = (() => {
 
 const displayController = (() => { })();
 
-const Player = (playerName) => {
+const Player = (playerName, playerLetter) => {
     const player = playerName;
     const getSquares = document.querySelector('.game-board');
     const squares = e => {
         if (e.target !== e.currentTarget) {
             const divIndex = Array.from(e.target.parentElement.children).indexOf(e.target);
             const el = gameBoard.gameBoardArr.forEach((item, index) => {
-                if (index === divIndex) {
+                if (item === 'o' && index === divIndex || item === 'x' && index === divIndex) {
                     e.target.textContent = `${item}`;
                 } e.stopPropagation();
             });
@@ -29,6 +29,8 @@ const Player = (playerName) => {
     return { player, cacheDOM };
 };
 
-const emma = Player('Emmanuel');
+const emma = Player('Emmanuel', 'x');
+const nev = Player('Nevis', 'o');
 
 emma.cacheDOM();
+nev.cacheDOM();
