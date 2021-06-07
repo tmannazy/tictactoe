@@ -14,7 +14,7 @@
         "box7 box8 box9";
     gap: 10px;
     padding: 0 200px;
-    margin: 100px 200px;
+    margin: 100px 200px 20px;
 }
 
 .box {
@@ -56,4 +56,14 @@
 
 .box9 {
     grid-area: box9;
+}
+
+.marks {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.selectMark {
+    padding: 5px 20px;
+    width: 100px;
 }
