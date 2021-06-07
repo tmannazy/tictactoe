@@ -5,32 +5,49 @@ const gameBoard = (() => {
     return gameObj;
 })();
 
-const displayController = (() => { })();
+const displayController = (() => {
+    const playerOne = () => emma.cacheMarkDOM();
+    const playerTwo = () => nev.cacheMarkDOM();
+    return {
+        playerOne,
+        playerTwo
+    };
+})();
 
 const Player = (playerName, playerLetter) => {
-    const player = playerName;
+    // const player = playerName;
+
+    // cache DOM
     const getSquares = document.querySelector('.game-board');
+    const getMarkSelect = document.querySelector('.marks');
+
     const squares = e => {
-        if (e.target !== e.currentTarget) {
-            const divIndex = Array.from(e.target.parentElement.children).indexOf(e.target);
-            const el = gameBoard.gameBoardArr.forEach((item, index) => {
-                if (item === playerLetter && e.target.textContent == '') {
+        if (e.target !== e.currentTarget && e.target.textContent == '') {
+            // const divIndex = Array.from(e.target.parentElement.children).indexOf(e.target);
+            const el = gameBoard.gameBoardArr.forEach(item => {
+                if (item === playerLetter) {
                     e.target.textContent = `${item}`;
-                } e.stopPropagation();
+                }
             });
-        }
-    };
-    const cacheDOM = () => {
+        } e.stopPropagation();
+    }
+
+    const cacheBoardDOM = () => {
         getSquares.addEventListener('click', squares);
     };
 
-    const addMark = divTgt => {
-    };
-    return { player, cacheDOM };
+    const cacheMarkDOM = () => {
+        getMarkSelect.addEventListener('click', e => {
+            if (e.target !== e.currentTarget && e.target.textContent.toLowerCase() === playerLetter) {
+                cacheBoardDOM();
+            } e.stopPropagation();
+        });
+    }
+    return { cacheMarkDOM };
 };
 
 const emma = Player('Emmanuel', 'x');
 const nev = Player('Nevis', 'o');
 
-emma.cacheDOM();
-nev.cacheDOM();
+displayController.playerOne();
+displayController.playerTwo();
