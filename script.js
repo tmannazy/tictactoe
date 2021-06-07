@@ -1,6 +1,6 @@
 const gameBoard = (() => {
     const gameObj = {
-        gameBoardArr: ['x', 'o', 'x', 'o', 'x', 'o', 'o', 'x', 'o'],
+        gameBoardArr: ['x', 'o'],
     };
     return gameObj;
 })();
@@ -14,7 +14,7 @@ const Player = (playerName, playerLetter) => {
         if (e.target !== e.currentTarget) {
             const divIndex = Array.from(e.target.parentElement.children).indexOf(e.target);
             const el = gameBoard.gameBoardArr.forEach((item, index) => {
-                if (item === 'o' && index === divIndex || item === 'x' && index === divIndex) {
+                if (item === playerLetter && e.target.textContent == '') {
                     e.target.textContent = `${item}`;
                 } e.stopPropagation();
             });
