@@ -12,57 +12,28 @@ const gameBoard = (() => {
     // cache DOM
     const getMarkSelect = document.querySelector('.marks');
     const getSquares = document.querySelector('.game-board');
+    let storeUserSelect;
 
     const isPlayerChoice = (suppliedPlayerLetter) => {
         getMarkSelect.addEventListener('click', e => {
             if (e.target !== e.currentTarget) {
                 if (e.target.textContent.toLowerCase() === suppliedPlayerLetter) {
+                    storeUserSelect = e.target.textContent.toLowerCase();
                     cacheBoardDOM(suppliedPlayerLetter);
-                    // on('.game-board', 'click', 'box', e => {
-                    //     const item = e.target
-                    // });
                 }
-                // else if (e.target.textContent.toLowerCase() === secondPlayerLetter) {
-                //     cacheBoardDOM(secondPlayerLetter);
-                // }
             } e.stopPropagation();
         });
     }
 
-
-    // const on = (selector, eventType, childSelector, eventHandler) => {
-    //     const elements = document.querySelectorAll(selector)
-    //     for (element of elements) {
-    //         element.addEventListener(eventType, eventOnElement => {
-    //             if (eventOnElement.target.matches(childSelector)) {
-    //                 eventHandler(eventOnElement)
-    //             }
-    //         })
-    //     }
-    // }
-
-
-    // const on = ('.game-board', 'click', 'box', e => {
-    //     const getSquares = e.target;
-    //     getSquares.forEach(element => {
-    //         element.addEventListener('click', evt => {
-    //             if (evt.target.matches(box)) {
-    //                 alert('Box clicked!');
-    //             }
-    //         })
-    //     });
-    // })
-
     const squares = e => {
         const el = gameBoardArr.some(item => {
-            if (e.target !== e.currentTarget && e.target.textContent == '') {
+            if (e.target !== e.currentTarget && e.target.textContent === '') {
                 // const divIndex = Array.from(e.target.parentElement.children).indexOf(e.target);
-                if (item === isPlayerChoice(suppliedPlayerLetter)) {
+                if (item !== storeUserSelect) {
+                    nextBoard(item);
+                } else {
                     return e.target.textContent = item;
                 }
-                // else {
-                //     return e.target.textContent = item;
-                // }
             } e.stopPropagation();
         });
     }
@@ -70,6 +41,23 @@ const gameBoard = (() => {
     const cacheBoardDOM = (playerLetter) => {
         getSquares.addEventListener('click', squares);
     };
+
+    const nextSquares = e => {
+        const nextEl = gameBoardArr.some(item => {
+            if (e.target !== e.currentTarget && e.target.textContent === '') {
+                cacheBoardDOM(item);
+            }
+            else if (e.target !== e.currentTarget) {
+                if (!(item === storeUserSelect)) {
+                    return e.target.textContent = item;
+                }
+            } e.stopPropagation();
+        });
+    }
+
+    const nextBoard = (playerLetter) => {
+        getSquares.addEventListener('click', nextSquares);
+    }
 
     return { isPlayerChoice };
 })();
