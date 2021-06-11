@@ -10,6 +10,7 @@ const gameBoard = (() => {
 
     const gameBoardObject = {
         gameBoardArr: ['x', 'o'],
+        storeUserSelect: '',
         init() {
             this.cacheBoardDOM();
             this.cacheMarkDOM();
@@ -18,27 +19,29 @@ const gameBoard = (() => {
         },
         cacheBoardDOM() {
             this.getBoardContainer = document.querySelector('.game-board');
-            this.squares = this.getBoardContainer.querySelectorAll('.box');
+            // this.squares = this.getBoardContainer.querySelectorAll('.box');
         },
         cacheMarkDOM() {
             this.markContainer = document.querySelector('.marks');
-            this.getUserSelect = this.markContainer.querySelectorAll('.selectMark');
+            // this.getUserSelect = this.markContainer.querySelectorAll('.selectMark');
         },
         bindEvents() {
-            this.squares.addEventListener('click', this.displayMark);
-            this.getUserSelect.addEventListener('click', pickUserMark);
+            this.markContainer.addEventListener('click', this.pickUserMark);
+            this.getBoardContainer.addEventListener('click', this.displayMark);
         },
-        displayMark() {
-            if (this.squares !== this.getBoardContainer && this.squares.textContent === '') {
-                const el = gameBoardArr.some(item => {
+        pickUserMark(e) {
+            if (e.target !== e.currentTarget) {
+                storeUserSelect = e.target.textContent.toLowerCase();
+            } e.stopPropagation();
+        },
+        displayMark(e) {
+            if (e.target !== e.currentTarget && e.target.textContent === '') {
+                const el = this.gameBoardArr.some(item => {
                     if (item === storeUserSelect) {
                         e.target.textContent = item;
                     }
                 });
             } e.stopPropagation();
-        },
-        pickUserMark() {
-
         },
         render() {
 
