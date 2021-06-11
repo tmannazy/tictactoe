@@ -7,51 +7,45 @@ const nev = Player('Nevis', 'o');
 
 
 const gameBoard = (() => {
+    const gameBoardArr = ['x', 'o'];
+    const storeUserSelect = [];
 
-    const gameBoardObject = {
-        gameBoardArr: ['x', 'o'],
-        storeUserSelect: '',
-        init() {
-            this.cacheBoardDOM();
-            this.cacheMarkDOM();
-            this.bindEvents();
-            this.render();
-        },
-        cacheBoardDOM() {
-            this.getBoardContainer = document.querySelector('.game-board');
-            // this.squares = this.getBoardContainer.querySelectorAll('.box');
-        },
-        cacheMarkDOM() {
-            this.markContainer = document.querySelector('.marks');
-            // this.getUserSelect = this.markContainer.querySelectorAll('.selectMark');
-        },
-        bindEvents() {
-            this.markContainer.addEventListener('click', this.pickUserMark);
-            this.getBoardContainer.addEventListener('click', this.displayMark);
-        },
-        render() {
+    // cacheDOM
+    const getBoardContainer = document.querySelector('.game-board');
+    const squares = getBoardContainer.querySelectorAll('.box');
+    const markContainer = document.querySelector('.marks');
+
+    // bindEvents
+    markContainer.addEventListener('click', pickUserMark.bind(this));
+    getBoardContainer.addEventListener('click', displayMark.bind(this));
+
+    const _pickUserMark = e => {
+        if (e.target.closest('button')) {
+            gameBoardObject.storeUserSelect.push(e.target.textContent.toLowerCase());
+        }
+    }
+
+    const displayMark = e => {
+        if (e.target.closest('div.box') && e.target.textContent === '') {
             const el = gameBoardObject.gameBoardArr.some(item => {
-                if (item === this.storeUserSelect) {
-                    e.target.textContent = item;
+                if (item === gameBoardObject.storeUserSelect[0]) {
+                    gameBoardObject.render(item);
+                    // e.target.textContent = item;
                 }
             });
-        },
-        pickUserMark(e) {
-            if (e.target !== e.currentTarget) {
-                storeUserSelect = e.target.textContent.toLowerCase();
-            } e.stopPropagation();
-        },
-        displayMark(e) {
-            if (e.target !== e.currentTarget && e.target.textContent === '') {
-                this.render();
-            } e.stopPropagation();
-        },
-
-        // this.marking
-
-
-
+        }
     }
+
+    const render = e => {
+        squares.forEach(element => {
+            element.textContent = e;
+        });
+    }
+
+
+
+
+
 
     // cache DOM
 
@@ -111,17 +105,20 @@ const gameBoard = (() => {
     //     return { isPlayerChoice };
     // })();
 
-    // const displayController = (() => {
-    //     const players = () => {
-    //         gameBoard.isPlayerChoice(emma.playerMark);
-    //         gameBoard.isPlayerChoice(nev.playerMark);
-    //     };
-
-    //     return {
-    //         players
-    //     };
-    gameBoardObject.init();
+    return {
+        displayMark
+    }
 })();
 
+const displayController = (() => {
+    const players = () => {
+        gameBoard.isPlayerChoice(emma.playerMark);
+        gameBoard.isPlayerChoice(nev.playerMark);
+    };
+
+    return {
+        players
+    };
+})();
 
 // displayController.players();
