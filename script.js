@@ -29,6 +29,13 @@ const gameBoard = (() => {
             this.markContainer.addEventListener('click', this.pickUserMark);
             this.getBoardContainer.addEventListener('click', this.displayMark);
         },
+        render() {
+            const el = gameBoardObject.gameBoardArr.some(item => {
+                if (item === this.storeUserSelect) {
+                    e.target.textContent = item;
+                }
+            });
+        },
         pickUserMark(e) {
             if (e.target !== e.currentTarget) {
                 storeUserSelect = e.target.textContent.toLowerCase();
@@ -36,17 +43,13 @@ const gameBoard = (() => {
         },
         displayMark(e) {
             if (e.target !== e.currentTarget && e.target.textContent === '') {
-                const el = this.gameBoardArr.some(item => {
-                    if (item === storeUserSelect) {
-                        e.target.textContent = item;
-                    }
-                });
+                this.render();
             } e.stopPropagation();
         },
-        render() {
+
+        // this.marking
 
 
-        }
 
     }
 
