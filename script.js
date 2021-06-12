@@ -1,83 +1,46 @@
-const Player = (playerName, playerMark) => {
-    return { playerName, playerMark };
+const Player = (playerMark) => {
+    return { playerMark };
 };
 
-const emma = Player('Emmanuel', 'x');
-const nev = Player('Nevis', 'o');
+const emma = Player('x');
+const nev = Player('o');
 
 
 const gameBoard = (() => {
     const gameBoardArr = ['x', 'o'];
-    const storeUserSelect = [];
-
-    // cacheDOM
-    const getBoardContainer = document.querySelector('.game-board');
-    const squares = getBoardContainer.querySelectorAll('.box');
+    const getPlayerOne = playerOne => playerOne;
+    const getPlayerTwo = playerTwo => playerTwo;
+    // const storeUserSelect = [];
 
 
-    const checkDivs = () => {
-        const checkSquares = squares.forEach((item, index, squares) => {
-            if (item.textContent === '' && squares[index] <= 8) {
-                return squares[index];
-            } else if (item.textContent !== '' && squares[index] >= 1) {
-                return item
-            }
-        });
-        return checkSquares;
-    }
-
-
-    const displayMark = e => {
-        if (e.target.closest('div.box') && e.target.textContent === '') {
-            const el = gameBoard.gameBoardArr.some(item => {
-                if (item === gameBoard.userLetterChoice()) {
-                    e.target.textContent = item;
-                }
-            });
-        }
-    };
-
-    // bindEvents
-    getBoardContainer.addEventListener('click', displayMark);
-
-    return {
-        checkDivs,
-        gameBoardArr,
-    };
-})();
-
-const displayController = (() => {
     // cacheDOM
     const markContainer = document.querySelector('.marks');
-    // const squares = getBoardContainer.querySelectorAll('.box');
 
-    // const userLetterChoice = () => {
-    //     if (!storeUserSelect.length) {
-    //         return storeUserSelect[0];
-    //     } else {
-    //         storeUserSelect = [];
-    //     }
+    // const gamePlayers = (playerOne, playerTwo) => {
     // };
 
-    const gamePlayers = (playerName, playerMark) => {
-        const getPlayer = () => playerName;
-        const getMark = () => playerMark;
+
+    const playAgainst = opponent => {
+        // gameBoard.checkDivs();
+        if (getPlayerOne(emma.playerMark) !== opponent) {
+            displayController.outputMark();
+        } else if (getPlayerTwo(nev.playerMark) !== opponent) {
+            displayController.outputMark();
+        }
     }
 
     const getLetterChoice = e => {
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === 'x') {
-                emma.playAgainst(nev);
+                getPlayerOne(emma.playerMark);
+                playAgainst(nev.playerMark);
             } else {
-                nev.playAgainst(emma);
+                getPlayerTwo(nev.playerMark);
+                playAgainst(emma.playerMark);
             }
         }
     };
 
-
-    const playAgainst = opponent => {
-        // if ()
-    }
 
 
     // bindEvents
@@ -85,8 +48,53 @@ const displayController = (() => {
 
 
     return {
-        // gamePlayers,
+        getPlayerOne,
+        getPlayerTwo,
+        gameBoardArr,
     };
 })();
 
-// displayController.players();
+
+const displayController = (() => {
+    // cacheDOM
+    const getBoardContainer = document.querySelector('.game-board');
+    const squares = getBoardContainer.querySelectorAll('.box');
+
+
+    const checkDivs = () => {
+        const checkSquares = squares.forEach((item, index, squares) => {
+            if (item.textContent === '' && squares.length <= 9) {
+                return squares;
+            } else if (item.textContent !== '' && squares[index] >= 1) {
+                return item
+            }
+        });
+        return checkSquares;
+    }
+
+    const displayMark = e => {
+        // if (e.target.closest('div.box') && e.target.textContent === '') {
+        if (e.target.closest('div.box')) {
+            const el = gameBoard.gameBoardArr.some(item => {
+                if (item === gameBoard.getPlayerOne()) {
+                    e.target.textContent = item;
+                } else if (item === gameBoard.getPlayerTwo()) {
+                    e.target.textContent = item;
+                }
+            });
+        }
+    };
+
+    // bindEvents
+    const outputMark = () => { getBoardContainer.addEventListener('click', displayMark); };
+
+
+
+    return {
+        outputMark
+        // gamePlayers
+    };
+})();
+
+// displayController.gamePlayers(nev);
+// gameBoard.gamePlayers(emma.playerMark, nev.playerMark);
