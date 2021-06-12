@@ -8,48 +8,29 @@ const nev = Player('Nevis', 'o');
 
 const gameBoard = (() => {
     const gameBoardArr = ['x', 'o'];
+    const storeUserSelect = [];
 
-    // cacheDOM
-    const markContainer = document.querySelector('.marks');
-    const squares = getBoardContainer.querySelectorAll('.box');
-
-    const userLetterChoice = playerLetter => {
-        const storeUserSelect = [];
-        storeUserSelect.push(playerLetter);
-        return storeUserSelect[0];
-    };
-
-    const _getLetterChoice = e => {
-        if (e.target.closest('button')) {
-            userLetterChoice.push(e.target.textContent.toLowerCase());
-        }
-    };
-
-    // const render = e => {
-    //     squares.forEach(element => {
-    //         element.textContent = e;
-    //     });
-    // };
-
-    // bindEvents
-    markContainer.addEventListener('click', _getLetterChoice);
-
-    return {
-        userLetterChoice,
-        gameBoardArr,
-    };
-})();
-
-const displayController = (() => {
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
     const squares = getBoardContainer.querySelectorAll('.box');
 
+
+    const checkDivs = () => {
+        const checkSquares = squares.forEach((item, index, squares) => {
+            if (item.textContent === '' && squares[index] <= 8) {
+                return squares[index];
+            } else if (item.textContent !== '' && squares[index] >= 1) {
+                return item
+            }
+        });
+        return checkSquares;
+    }
+
+
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
-            const el = gameBoardObject.gameBoardArr.some(item => {
-                if (item === gameBoardObject.userLetterChoice()) {
-                    // gameBoardObject.render(item);
+            const el = gameBoard.gameBoardArr.some(item => {
+                if (item === gameBoard.userLetterChoice()) {
                     e.target.textContent = item;
                 }
             });
@@ -59,17 +40,53 @@ const displayController = (() => {
     // bindEvents
     getBoardContainer.addEventListener('click', displayMark);
 
-    // const players = () => {
-    //     if (gameBoard.userLetterChoice(emma.playerMark)) {
-    //         gameBoard._getLetterChoice()
-    //     } else if (gameBoard.userLetterChoice(nev.playerMark)) {
-    //         gameBoard._getLetterChoice();
-    //     }
-    // };
-
     return {
-        players
+        checkDivs,
+        gameBoardArr,
     };
 })();
 
-displayController.players();
+const displayController = (() => {
+    // cacheDOM
+    const markContainer = document.querySelector('.marks');
+    // const squares = getBoardContainer.querySelectorAll('.box');
+
+    // const userLetterChoice = () => {
+    //     if (!storeUserSelect.length) {
+    //         return storeUserSelect[0];
+    //     } else {
+    //         storeUserSelect = [];
+    //     }
+    // };
+
+    const gamePlayers = (playerName, playerMark) => {
+        const getPlayer = () => playerName;
+        const getMark = () => playerMark;
+    }
+
+    const getLetterChoice = e => {
+        if (e.target.closest('button')) {
+            if (e.target.textContent.toLowerCase() === 'x') {
+                emma.playAgainst(nev);
+            } else {
+                nev.playAgainst(emma);
+            }
+        }
+    };
+
+
+    const playAgainst = opponent => {
+        // if ()
+    }
+
+
+    // bindEvents
+    markContainer.addEventListener('click', getLetterChoice);
+
+
+    return {
+        // gamePlayers,
+    };
+})();
+
+// displayController.players();
