@@ -1,27 +1,24 @@
-const Player = (playerMark) => {
-    return { playerMark };
+const Player = (playerName, playerMark) => {
+    return { playerName, playerMark };
 };
 
-const emma = Player('x');
-const nev = Player('o');
+const emma = Player('Emmanuel', 'x');
+const nev = Player('Nevis', 'o');
 
 
 const gameBoard = (() => {
     const gameBoardArr = ['x', 'o'];
-    // const getPlayerOne = playerOne => playerOne;
-    // const getPlayerTwo = playerTwo => playerTwo;
-    const storeUserSelect = [];
+    const storePlayerOneLetter = [];
+    const storePlayerTwoLetter = [];
+    const getPlayerOne = () => emma;
+    const getPlayerTwo = () => nev;
 
 
     // cacheDOM
     const markContainer = document.querySelector('.marks');
 
-    // const gamePlayers = (playerOne, playerTwo) => {
-    // };
 
-
-    const playAgainst = opponent => {
-        // gameBoard.checkDivs();
+    const currentPlayer = () => {
         if (emma.playerMark === opponent) {
             displayController.outputMark();
         } else if (nev.playerMark === opponent) {
@@ -31,18 +28,13 @@ const gameBoard = (() => {
 
     const getLetterChoice = e => {
         if (e.target.closest('button')) {
-            if (e.target.textContent.toLowerCase() === 'x') {
-                // getPlayerOne(emma.playerMark);
-                storeUserSelect.push(e.target.textContent.toLowerCase());
-                playAgainst(nev.playerMark);
-            } else {
-                // getPlayerTwo(nev.playerMark);
-                storeUserSelect.push(e.target.textContent.toLowerCase());
-                playAgainst(emma.playerMark);
+            if (e.target.textContent.toLowerCase() === getPlayerOne.playerMark) {
+                storePlayerOneLetter.push(getPlayerOne.playerMark);
+            } else if (e.target.textContent.toLowerCase() === getPlayerTwo.playerMark) {
+                storePlayerTwoLetter.push(getPlayerTwo.playerMark);
             }
         }
     };
-
 
 
     // bindEvents
@@ -50,9 +42,9 @@ const gameBoard = (() => {
 
 
     return {
-        // getPlayerOne,
-        // getPlayerTwo,
-        storeUserSelect,
+        getPlayerOne,
+        getPlayerTwo,
+        // storeUserSelect,
         gameBoardArr,
     };
 })();
@@ -64,19 +56,8 @@ const displayController = (() => {
     const squares = getBoardContainer.querySelectorAll('.box');
 
 
-    // const checkDivs = () => {
-    //     const checkSquares = squares.forEach((item, index, squares) => {
-    //         if (item.textContent === '' && squares.length <= 9) {
-    //             return squares;
-    //         } else if (item.textContent !== '' && squares[index] >= 1) {
-    //             return item
-    //         }
-    //     });
-    //     return checkSquares;
-    // }
 
     const displayMark = e => {
-        // if (e.target.closest('div.box') && e.target.textContent === '') {
         if (e.target.closest('div.box')) {
             const el = gameBoard.gameBoardArr.some(item => {
                 if (item === gameBoard.storeUserSelect[0]) {
@@ -99,6 +80,3 @@ const displayController = (() => {
     };
 
 })();
-
-// displayController.gamePlayers(nev);
-// gameBoard.gamePlayers(emma.playerMark, nev.playerMark);
