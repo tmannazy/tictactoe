@@ -18,20 +18,22 @@ const gameBoard = (() => {
     const markContainer = document.querySelector('.marks');
 
 
-    const currentPlayer = () => {
-        if (emma.playerMark === opponent) {
+    const currentPlayer = player => {
+        if (player === getPlayerOne().playerMark) {
             displayController.outputMark();
-        } else if (nev.playerMark === opponent) {
+        } else if (player === getPlayerTwo().playerMark) {
             displayController.outputMark();
         }
     }
 
     const getLetterChoice = e => {
         if (e.target.closest('button')) {
-            if (e.target.textContent.toLowerCase() === getPlayerOne.playerMark) {
-                storePlayerOneLetter.push(getPlayerOne.playerMark);
-            } else if (e.target.textContent.toLowerCase() === getPlayerTwo.playerMark) {
-                storePlayerTwoLetter.push(getPlayerTwo.playerMark);
+            if (e.target.textContent.toLowerCase() === getPlayerOne().playerMark) {
+                storePlayerOneLetter.push(e.target.textContent.toLowerCase());
+                currentPlayer(e.target.textContent.toLowerCase());
+            } else if (e.target.textContent.toLowerCase() === getPlayerTwo().playerMark) {
+                storePlayerTwoLetter.push(e.target.textContent.toLowerCase());
+                currentPlayer(e.target.textContent.toLowerCase());
             }
         }
     };
@@ -71,7 +73,7 @@ const displayController = (() => {
     };
 
     // bindEvents
-    const outputMark = () => { getBoardContainer.addEventListener('click', displayMark); };
+    const outputMark = () => { getBoardContainer.addEventListener('click', displayMark.bind(null, displayMark)); };
 
 
 
