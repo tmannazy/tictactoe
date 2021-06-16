@@ -67,14 +67,14 @@ const displayController = (() => {
                 if (item === playerLet) {
                     if (playerLet === 'x') {
                         e.target.textContent = item;
+                        gameBoard.currentPlayer('o');
                     }
-                    gameBoard.currentPlayer('o');
-                }
-                else if (item === playerLet) {
-                    if (playerLet === 'o') {
-                        e.target.textContent = item;
+                    else if (item === playerLet) {
+                        if (playerLet === 'o') {
+                            e.target.textContent = item;
+                            gameBoard.currentPlayer('x');
+                        }
                     }
-                    gameBoard.currentPlayer('x');
                 }
             });
             //             gameBoard.currentPlayer('x');
