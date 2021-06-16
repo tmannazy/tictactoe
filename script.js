@@ -48,8 +48,16 @@ const gameBoard = (() => {
 
 
 const displayController = (() => {
+    let pos1, pos2, pos3;
+
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
+    const squares = getBoardContainer.querySelectorAll('.box');
+
+
+    const getSquaresIndex = (p1, p2, p3) => {
+
+    }
 
 
     const displayMark = e => {
@@ -69,8 +77,18 @@ const displayController = (() => {
                     }
                 }
             });
-        }
-    };
+
+            // const pos1 = el;
+            const squaresIndex = squares.forEach((item, index) => {
+                pos1 = index;
+
+                // .forEach((item, index) => {
+                //     // if(pos1)
+                // });
+            });
+            getSquaresIndex(pos1, pos2, pos3);
+        };
+    }
 
 
     // bindEvents
@@ -78,7 +96,8 @@ const displayController = (() => {
 
 
     return {
-        displayMark
+        displayMark,
+        squares
     };
 
 })();
