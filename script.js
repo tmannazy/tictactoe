@@ -8,13 +8,9 @@ const nev = Player('Nevis', 'o');
 
 const gameBoard = (() => {
     const gameBoardArr = ['x', 'o'];
-    // const storePlayerOneLetter = [];
-    // const storePlayerTwoLetter = [];
     const getPlayerOne = emma;
     const getPlayerTwo = nev;
     let val;
-
-
 
     // cacheDOM
     const markContainer = document.querySelector('.marks');
@@ -29,7 +25,7 @@ const gameBoard = (() => {
         return val;
     };
 
-    const getLetterChoice = e => {
+    const _getLetterChoice = e => {
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === getPlayerOne.playerMark) {
                 currentPlayer(e.target.textContent.toLowerCase());
@@ -41,13 +37,11 @@ const gameBoard = (() => {
 
 
     // bindEvents
-    markContainer.addEventListener('click', getLetterChoice);
+    markContainer.addEventListener('click', _getLetterChoice);
 
 
     return {
         currentPlayer,
-        // storePlayerOneLetter,
-        // storePlayerTwoLetter,
         gameBoardArr,
     };
 })();
@@ -56,55 +50,31 @@ const gameBoard = (() => {
 const displayController = (() => {
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
-    const squares = getBoardContainer.querySelectorAll('.box');
-
 
 
     const displayMark = e => {
-        if (e.target.closest('div.box')) {
+        if (e.target.closest('div.box') && e.target.textContent === '') {
             const playerLet = gameBoard.currentPlayer();
-            const el = gameBoard.gameBoardArr.some(item => {
+            const el = gameBoard.gameBoardArr.forEach(item => {
                 if (item === playerLet) {
-                    if (playerLet === 'x') {
-                        e.target.textContent = item;
+                    switch (playerLet) {
+                        case 'x':
+                            e.target.textContent = item;
+                            gameBoard.currentPlayer('o');
+                            break;
+                        case 'o':
+                            e.target.textContent = item;
+                            gameBoard.currentPlayer('x');
+                            break;
                     }
-                    gameBoard.currentPlayer('o');
-                }
-                else if (item === playerLet) {
-                    if (playerLet === 'o') {
-                        e.target.textContent = item;
-                    }
-                    gameBoard.currentPlayer('x');
                 }
             });
-            //             gameBoard.currentPlayer('x');
-            //         });
-            // } const el = gameBoard.gameBoardArr.some(item => {
-            //     if (item === 'x') {
-            //         e.target.textContent = item.target.textContent = item;
-            //     }
-            // });
-            // gameBoard.currentPlayer('o');
-            // //
-            // if (item !== gameBoard.storeUserSelect[0]) {
-            //     e.target.textContent = item;
-            // }
-
-            //     switch (item) {
-            //         case 'gameBoard.currentPlayer':
-            //             e.target.textContent = item;
-            //             break;
-
-            //     }
-            // });
         }
     };
 
-    // bindEvents
-    // const outputMark = () => {
-    getBoardContainer.addEventListener('click', displayMark);
-    // };
 
+    // bindEvents
+    getBoardContainer.addEventListener('click', displayMark);
 
 
     return {
