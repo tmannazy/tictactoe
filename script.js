@@ -7,10 +7,10 @@ const nev = Player('Nevis', 'o');
 
 
 const gameBoard = (() => {
-    const gameBoardArr = ['x', 'o'];
+    const gameBoardArray = ['x', 'o'];
     const getPlayerOne = emma;
     const getPlayerTwo = nev;
-    let val;
+    let currentPlayerValue;
 
     // cacheDOM
     const markContainer = document.querySelector('.marks');
@@ -18,11 +18,11 @@ const gameBoard = (() => {
 
     const currentPlayer = player => {
         if (player === getPlayerOne.playerMark) {
-            val = player;
+            currentPlayerValue = player;
         } else if (player === getPlayerTwo.playerMark) {
-            val = player;
+            currentPlayerValue = player;
         }
-        return val;
+        return currentPlayerValue;
     };
 
     const _getLetterChoice = e => {
@@ -42,7 +42,7 @@ const gameBoard = (() => {
 
     return {
         currentPlayer,
-        gameBoardArr,
+        gameBoardArray,
     };
 })();
 
@@ -54,10 +54,10 @@ const displayController = (() => {
 
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
-            const playerLet = gameBoard.currentPlayer();
-            const el = gameBoard.gameBoardArr.forEach(item => {
-                if (item === playerLet) {
-                    switch (playerLet) {
+            const getPlayerValue = gameBoard.currentPlayer();
+            const el = gameBoard.gameBoardArray.forEach(item => {
+                if (item === getPlayerValue) {
+                    switch (getPlayerValue) {
                         case 'x':
                             e.target.textContent = item;
                             gameBoard.currentPlayer('o');
