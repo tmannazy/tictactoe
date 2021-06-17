@@ -16,7 +16,7 @@ const gameBoard = (() => {
     const markContainer = document.querySelector('.marks');
 
 
-    const currentPlayer = player => {
+    const _currentPlayer = player => {
         switch (player) {
             case getPlayerOne.playerMark:
                 currentPlayerValue = player;
@@ -31,12 +31,50 @@ const gameBoard = (() => {
     const _getLetterChoice = e => {
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === getPlayerOne.playerMark) {
-                currentPlayer(e.target.textContent.toLowerCase());
+                _currentPlayer(e.target.textContent.toLowerCase());
             } else if (e.target.textContent.toLowerCase() === getPlayerTwo.playerMark) {
-                currentPlayer(e.target.textContent.toLowerCase());
+                _currentPlayer(e.target.textContent.toLowerCase());
             }
         }
     };
+
+    const displayMark = e => {
+        if (e.target.closest('div.box') && e.target.textContent === '') {
+            const getPlayerValue = _currentPlayer();
+            const placeValues = gameBoardArray.forEach(item => {
+                if (item === getPlayerValue) {
+                    switch (getPlayerValue) {
+                        case 'x':
+                            e.target.textContent = item;
+                            _currentPlayer('o');
+                            break;
+                        case 'o':
+                            e.target.textContent = item;
+                            _currentPlayer('x');
+                            break;
+                    }
+                }
+            });
+
+            const squaresIndex = squares.forEach((item, index) => {
+                if (item.className === e.target.closest('div.box').className && e.target.textContent !== '') {
+                    if (pos2 !== '' && pos2 === item.textContent) {
+                        pos3 = item.textContent;
+                        posNum3 = index;
+                    }
+                    else if (pos1 !== '' && pos1 === item.textContent) {
+                        pos2 = item.textContent;
+                        posNum2 = index;
+                    }
+                    else if (pos1 === '') {
+                        pos1 = item.textContent;
+                        posNum1 = index;
+                    }
+                }
+            });
+            getSquaresIndex(posNum1, posNum2, posNum3);
+        };
+    }
 
 
     // bindEvents
@@ -44,8 +82,7 @@ const gameBoard = (() => {
 
 
     return {
-        currentPlayer,
-        gameBoardArray,
+        displayMark
     };
 })();
 
@@ -79,51 +116,15 @@ const displayController = (() => {
         })
     }
 
-    const displayMark = e => {
-        if (e.target.closest('div.box') && e.target.textContent === '') {
-            const getPlayerValue = gameBoard.currentPlayer();
-            const placeValues = gameBoard.gameBoardArray.forEach(item => {
-                if (item === getPlayerValue) {
-                    switch (getPlayerValue) {
-                        case 'x':
-                            e.target.textContent = item;
-                            gameBoard.currentPlayer('o');
-                            break;
-                        case 'o':
-                            e.target.textContent = item;
-                            gameBoard.currentPlayer('x');
-                            break;
-                    }
-                }
-            });
 
-            const squaresIndex = squares.forEach((item, index) => {
-                if (item.className === e.target.closest('div.box').className && e.target.textContent !== '') {
-                    if (pos2 !== '' && pos2 === item.textContent) {
-                        pos3 = item.textContent;
-                        posNum3 = index;
-                    }
-                    else if (pos1 !== '' && pos1 === item.textContent) {
-                        pos2 = item.textContent;
-                        posNum2 = index;
-                    }
-                    else if (pos1 === '') {
-                        pos1 = item.textContent;
-                        posNum1 = index;
-                    }
-                }
-            });
-            getSquaresIndex(posNum1, posNum2, posNum3);
-        };
-    }
 
 
     // bindEvents
-    getBoardContainer.addEventListener('click', displayMark);
+    getBoardContainer.addEventListener('click', gameBoard.displayMark);
 
 
     return {
-        displayMark,
+        // displayMark,
     };
 
 })();
