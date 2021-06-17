@@ -17,10 +17,13 @@ const gameBoard = (() => {
 
 
     const currentPlayer = player => {
-        if (player === getPlayerOne.playerMark) {
-            currentPlayerValue = player;
-        } else if (player === getPlayerTwo.playerMark) {
-            currentPlayerValue = player;
+        switch (player) {
+            case getPlayerOne.playerMark:
+                currentPlayerValue = player;
+                break;
+            case getPlayerTwo.playerMark:
+                currentPlayerValue = player;
+                break;
         }
         return currentPlayerValue;
     };
@@ -60,11 +63,26 @@ const displayController = (() => {
 
     }
 
+    const gameWinner = (p1, p2, p3) => {
+        squares.forEach((item, index) => {
+
+            if (index === p1) {
+                const first = item.charAt(p1);
+                return first;
+            } else if (index === p2) {
+                const second = item.charAt(p2);
+                return second;
+            } else if (index === p3) {
+                const third = item.charAt(p3);
+                return third;
+            }
+        })
+    }
 
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             const getPlayerValue = gameBoard.currentPlayer();
-            const el = gameBoard.gameBoardArray.forEach(item => {
+            const placeValues = gameBoard.gameBoardArray.forEach(item => {
                 if (item === getPlayerValue) {
                     switch (getPlayerValue) {
                         case 'x':
@@ -78,12 +96,14 @@ const displayController = (() => {
                     }
                 }
             });
+
             const squaresIndex = squares.forEach((item, index) => {
-                if (item.className === e.target.closest('div.box').className) {
+                if (item.className === e.target.closest('div.box').className && e.target.textContent !== '') {
                     if (pos2 !== '' && pos2 === item.textContent) {
                         pos3 = item.textContent;
                         posNum3 = index;
-                    } else if (pos1 !== '' && pos1 === item.textContent) {
+                    }
+                    else if (pos1 !== '' && pos1 === item.textContent) {
                         pos2 = item.textContent;
                         posNum2 = index;
                     }
