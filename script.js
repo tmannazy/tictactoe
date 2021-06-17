@@ -48,7 +48,8 @@ const gameBoard = (() => {
 
 
 const displayController = (() => {
-    let pos1, pos2, pos3;
+    let pos1 = '', pos2 = '', pos3 = '';
+    let posNum1, posNum2, posNum3;
 
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
@@ -77,16 +78,22 @@ const displayController = (() => {
                     }
                 }
             });
-
-            // const pos1 = el;
             const squaresIndex = squares.forEach((item, index) => {
-                pos1 = index;
-
-                // .forEach((item, index) => {
-                //     // if(pos1)
-                // });
+                if (item.className === e.target.closest('div.box').className) {
+                    if (pos2 !== '' && pos2 === item.textContent) {
+                        pos3 = item.textContent;
+                        posNum3 = index;
+                    } else if (pos1 !== '' && pos1 === item.textContent) {
+                        pos2 = item.textContent;
+                        posNum2 = index;
+                    }
+                    else if (pos1 === '') {
+                        pos1 = item.textContent;
+                        posNum1 = index;
+                    }
+                }
             });
-            getSquaresIndex(pos1, pos2, pos3);
+            getSquaresIndex(posNum1, posNum2, posNum3);
         };
     }
 
@@ -97,7 +104,6 @@ const displayController = (() => {
 
     return {
         displayMark,
-        squares
     };
 
 })();
