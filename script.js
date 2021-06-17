@@ -54,25 +54,10 @@ const gameBoard = (() => {
                             break;
                     }
                 }
-            });
-
-            const squaresIndex = squares.forEach((item, index) => {
-                if (item.className === e.target.closest('div.box').className && e.target.textContent !== '') {
-                    if (pos2 !== '' && pos2 === item.textContent) {
-                        pos3 = item.textContent;
-                        posNum3 = index;
-                    }
-                    else if (pos1 !== '' && pos1 === item.textContent) {
-                        pos2 = item.textContent;
-                        posNum2 = index;
-                    }
-                    else if (pos1 === '') {
-                        pos1 = item.textContent;
-                        posNum1 = index;
-                    }
+                else if (e.target.closest('div.box').textContent !== '') {
+                    displayController.getSquaresIndex();
                 }
             });
-            getSquaresIndex(posNum1, posNum2, posNum3);
         };
     }
 
@@ -88,7 +73,7 @@ const gameBoard = (() => {
 
 
 const displayController = (() => {
-    let pos1 = '', pos2 = '', pos3 = '';
+    let pos1, pos2, pos3;
     let posNum1, posNum2, posNum3;
 
     // cacheDOM
@@ -96,22 +81,35 @@ const displayController = (() => {
     const squares = getBoardContainer.querySelectorAll('.box');
 
 
-    const getSquaresIndex = (p1, p2, p3) => {
+    const getSquaresIndex = () => {
+        if (gameWinner(0, 1, 2) ||
+            gameWinner(3, 4, 5) ||
+            gameWinner(6, 7, 8) ||
+            gameWinner(0, 3, 6) ||
+            gameWinner(1, 4, 7) ||
+            gameWinner(2, 5, 8) ||
+            gameWinner(0, 4, 8) ||
+            gameWinner(2, 4, 6)
+        ) {
 
+        }
     }
 
     const gameWinner = (p1, p2, p3) => {
         squares.forEach((item, index) => {
-
-            if (index === p1) {
-                const first = item.charAt(p1);
-                return first;
-            } else if (index === p2) {
-                const second = item.charAt(p2);
-                return second;
-            } else if (index === p3) {
-                const third = item.charAt(p3);
-                return third;
+            switch (index) {
+                case p1:
+                    pos1 = item.textContent;
+                    break;
+                case p2:
+                    pos2 = item.textContent;
+                    break;
+                case p3:
+                    pos3 = item.textContent;
+                    break;
+            }
+            if (pos1 === pos2 && pos1 === pos3) {
+                return `${pos1} is winner`
             }
         })
     }
@@ -124,7 +122,7 @@ const displayController = (() => {
 
 
     return {
-        // displayMark,
+        getSquaresIndex
     };
 
 })();
