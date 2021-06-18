@@ -74,7 +74,6 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     let pos1, pos2, pos3;
-    // let posNum1, posNum2, posNum3;
 
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
@@ -82,17 +81,19 @@ const displayController = (() => {
 
 
     const getSquaresIndex = () => {
-        return gameWinner(0, 1, 2) ||
-            gameWinner(3, 4, 5) ||
-            gameWinner(6, 7, 8) ||
-            gameWinner(0, 3, 6) ||
-            gameWinner(1, 4, 7) ||
-            gameWinner(2, 5, 8) ||
-            gameWinner(0, 4, 8) ||
-            gameWinner(2, 4, 6)
+        // if (_stalemateGame()) {
+        return _gameWinner(0, 1, 2) ||
+            _gameWinner(3, 4, 5) ||
+            _gameWinner(6, 7, 8) ||
+            _gameWinner(0, 3, 6) ||
+            _gameWinner(1, 4, 7) ||
+            _gameWinner(2, 5, 8) ||
+            _gameWinner(0, 4, 8) ||
+            _gameWinner(2, 4, 6)
+        // }
     }
 
-    const gameWinner = (p1, p2, p3) => {
+    const _gameWinner = (p1, p2, p3) => {
         squares.forEach((item, index) => {
             switch (index) {
                 case p1:
@@ -107,23 +108,31 @@ const displayController = (() => {
             }
         });
         if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
+            const winnerDiv = document.createElement('div');
+            const displayWinner = document.createElement('div');
+            winnerDiv.className = 'winner';
+            winnerDiv.appendChild(displayWinner);
             if (pos1 === pos2 && pos1 === pos3) {
                 switch (pos1) {
                     case 'x':
-                        console.log(`${emma.playerName} is the winner`);
+                        displayWinner.textContent = `${emma.playerName} is the winner`;
                         break;
                     case 'o':
-                        console.log(`${nev.playerName} is the winner`);
-                        break;
-                    default:
-                        console.log('The game is a tie');
+                        displayWinner.textContent = `${nev.playerName} is the winner`;
                         break;
                 }
             }
+            getBoardContainer.appendChild(winnerDiv);
         }
     }
 
-
+    const _stalemateGame = () => {
+        squares.forEach(item => {
+            if (item.textContent !== '') {
+                console.log('The game is a tie');
+            }
+        });
+    }
 
 
     // bindEvents
