@@ -74,7 +74,7 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     let pos1, pos2, pos3;
-    let posNum1, posNum2, posNum3;
+    // let posNum1, posNum2, posNum3;
 
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
@@ -82,7 +82,7 @@ const displayController = (() => {
 
 
     const getSquaresIndex = () => {
-        if (gameWinner(0, 1, 2) ||
+        return gameWinner(0, 1, 2) ||
             gameWinner(3, 4, 5) ||
             gameWinner(6, 7, 8) ||
             gameWinner(0, 3, 6) ||
@@ -90,9 +90,6 @@ const displayController = (() => {
             gameWinner(2, 5, 8) ||
             gameWinner(0, 4, 8) ||
             gameWinner(2, 4, 6)
-        ) {
-
-        }
     }
 
     const gameWinner = (p1, p2, p3) => {
@@ -108,10 +105,22 @@ const displayController = (() => {
                     pos3 = item.textContent;
                     break;
             }
+        });
+        if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
             if (pos1 === pos2 && pos1 === pos3) {
-                return `${pos1} is winner`
+                switch (pos1) {
+                    case 'x':
+                        console.log(`${emma.playerName} is the winner`);
+                        break;
+                    case 'o':
+                        console.log(`${nev.playerName} is the winner`);
+                        break;
+                    default:
+                        console.log('The game is a tie');
+                        break;
+                }
             }
-        })
+        }
     }
 
 
