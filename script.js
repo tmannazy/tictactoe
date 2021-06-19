@@ -72,6 +72,10 @@ const gameBoard = (() => {
 
 const displayController = (() => {
     let pos1, pos2, pos3;
+    const winnerDiv = document.createElement('div');
+    const displayPlayOutcome = document.createElement('div');
+    winnerDiv.className = 'winner';
+    winnerDiv.appendChild(displayPlayOutcome);
 
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
@@ -79,7 +83,6 @@ const displayController = (() => {
 
 
     const getSquaresIndex = () => {
-        // if (_stalemateGame()) {
         return _gameWinner(0, 1, 2) ||
             _gameWinner(3, 4, 5) ||
             _gameWinner(6, 7, 8) ||
@@ -87,8 +90,8 @@ const displayController = (() => {
             _gameWinner(1, 4, 7) ||
             _gameWinner(2, 5, 8) ||
             _gameWinner(0, 4, 8) ||
-            _gameWinner(2, 4, 6)
-        // }
+            _gameWinner(2, 4, 6) ||
+            _stalemateGame();
     }
 
     const _gameWinner = (p1, p2, p3) => {
@@ -106,43 +109,43 @@ const displayController = (() => {
             }
         });
         if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
-            const winnerDiv = document.createElement('div');
-            const displayWinner = document.createElement('div');
-            winnerDiv.className = 'winner';
-            winnerDiv.appendChild(displayWinner);
             if (pos1 === pos2 && pos1 === pos3) {
                 switch (pos1) {
                     case 'x':
-                        displayWinner.textContent = `${emma.playerName} is the winner`;
+                        displayPlayOutcome.textContent = `${emma.playerName} is the winner`;
                         break;
                     case 'o':
-                        displayWinner.textContent = `${nev.playerName} is the winner`;
+                        displayPlayOutcome.textContent = `${nev.playerName} is the winner`;
                         break;
                 }
                 pos1 = pos2 = pos3 = '';
                 getBoardContainer.appendChild(winnerDiv);
-                removeEvent();
+                _removeHandler();
             }
         }
     }
 
     const _stalemateGame = () => {
-        squares.forEach(item => {
-            if (item.textContent !== '') {
-                console.log('The game is a tie');
-            }
-        });
+        for (let i = 0; i < 9; i++) {
+            if (squares[i].textContent === '')
+                return false;
+        }
+        displayPlayOutcome.textContent = 'The game is a tie';
+        getBoardContainer.appendChild(displayPlayOutcome);
+        return true;
     }
 
     // bindEvents
     getBoardContainer.addEventListener('click', gameBoard.displayMark);
-    const removeEvent = () => {
+
+    // removeEvents
+    const _removeHandler = () => {
         getBoardContainer.removeEventListener('click', gameBoard.displayMark);
     }
 
 
     return {
-        getSquaresIndex
+        getSquaresIndex,
     };
 
 })();
