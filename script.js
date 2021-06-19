@@ -53,12 +53,10 @@ const gameBoard = (() => {
                             _currentPlayer('x');
                             break;
                     }
-                }
-                else if (e.target.closest('div.box').textContent !== '') {
                     displayController.getSquaresIndex();
                 }
             });
-        };
+        }
     }
 
 
@@ -121,9 +119,10 @@ const displayController = (() => {
                         displayWinner.textContent = `${nev.playerName} is the winner`;
                         break;
                 }
+                getBoardContainer.appendChild(winnerDiv);
+                pos1 = pos2 = pos3 = '';
             }
-            getBoardContainer.appendChild(winnerDiv);
-        }
+        } return false;
     }
 
     const _stalemateGame = () => {
