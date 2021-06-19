@@ -119,10 +119,11 @@ const displayController = (() => {
                         displayWinner.textContent = `${nev.playerName} is the winner`;
                         break;
                 }
-                getBoardContainer.appendChild(winnerDiv);
                 pos1 = pos2 = pos3 = '';
+                getBoardContainer.appendChild(winnerDiv);
+                removeEvent();
             }
-        } return false;
+        }
     }
 
     const _stalemateGame = () => {
@@ -133,9 +134,11 @@ const displayController = (() => {
         });
     }
 
-
     // bindEvents
     getBoardContainer.addEventListener('click', gameBoard.displayMark);
+    const removeEvent = () => {
+        getBoardContainer.removeEventListener('click', gameBoard.displayMark);
+    }
 
 
     return {
