@@ -11,6 +11,25 @@
 
     <body>
         <main>
+            <form id="form-one">
+                <p>enter your name</p>
+                <label for="player-one">player one</label>
+                <input type="text" name="player-one" id="player-one">
+                <button id="submit">Submit</button>
+            </form>
+            <form id="form-two">
+                <p>enter your name</p>
+                <label for="player-two">player two</label>
+                <input type="text" name="player-two" id="player-two">
+                <button id="submit">submit</button>
+            </form>
+            <div class="marks">
+                <button class="selectMark">x</button>
+                <button class="selectMark">o</button>
+            </div>
+            <div class="gamestart">
+                <button id="start-game">start</button>
+            </div>
             <div class="game-board">
                 <div class="box1 box"></div>
                 <div class="box2 box"></div>
@@ -21,10 +40,6 @@
                 <div class="box7 box"></div>
                 <div class="box8 box"></div>
                 <div class="box9 box"></div>
-            </div>
-            <div class="marks">
-                <button class="selectMark">x</button>
-                <button class="selectMark">o</button>
             </div>
         </main>
         <script src="script.js"></script>
