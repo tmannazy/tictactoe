@@ -1,3 +1,10 @@
+const hideBoard = document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.game-board').style.display = 'none';
+    document.querySelector('.marks').style.display = 'none';
+    document.querySelector('#form-two').style.display = 'none';
+    document.querySelector('.gamestart').style.display = 'none';
+});
+
 const Player = (playerName, playerMark) => {
     return { playerName, playerMark };
 };
