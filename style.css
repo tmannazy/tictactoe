@@ -9,6 +9,7 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
+        "pieceBox pieceBox pieceBox"
         "box1 box2 box3"
         "box4 box5 box6"
         "box7 box8 box9";
@@ -20,6 +21,11 @@
 .box {
     background-color: cyan;
     height: 10vw;
+}
+
+.piece-box {
+    grid-area: pieceBox;
+    margin: 0 auto;
 }
 
 .box1 {
