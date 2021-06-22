@@ -9,10 +9,11 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
-        "pieceBox pieceBox pieceBox"
+        "pieceDiv pieceDiv pieceDiv"
         "box1 box2 box3"
         "box4 box5 box6"
-        "box7 box8 box9";
+        "box7 box8 box9"
+        "winnerDiv winnerDiv winnerDiv";
     gap: 10px;
     padding: 0 200px;
     margin: 100px 200px 20px;
@@ -23,8 +24,8 @@
     height: 10vw;
 }
 
-.piece-box {
-    grid-area: pieceBox;
+.piece-div {
+    grid-area: pieceDiv;
     margin: 0 auto;
 }
 
@@ -62,6 +63,11 @@
 
 .box9 {
     grid-area: box9;
+}
+
+.winner-div {
+    grid-area: winnerDiv;
+    margin: 0 auto;
 }
 
 .marks {
