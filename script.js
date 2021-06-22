@@ -1,10 +1,3 @@
-const hideBoard = document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.game-board').style.display = 'none';
-    document.querySelector('.marks').style.display = 'none';
-    document.querySelector('#form-two').style.display = 'none';
-    document.querySelector('.gamestart').style.display = 'none';
-});
-
 const Player = (playerName, playerMark) => {
     return { playerName, playerMark };
 };
@@ -21,6 +14,12 @@ const gameBoard = (() => {
 
     // cacheDOM
     const markContainer = document.querySelector('.marks');
+    const board = document.querySelector('.game-board');
+    const formOneSubmitButton = document.querySelector('#form-one-button');
+    const formTwoSubmitButton = document.querySelector('#form-two-button');
+    const formOne = document.querySelector('#form-one');
+    const formTwo = document.querySelector('#form-two');
+    const startButton = document.querySelector('.gamestart');
 
 
     const _currentPlayer = player => {
@@ -36,6 +35,8 @@ const gameBoard = (() => {
     };
 
     const _getLetterChoice = e => {
+        board.style.display = 'grid';
+        markContainer.style.display = 'none';
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === getPlayerOne.playerMark) {
                 _currentPlayer(e.target.textContent.toLowerCase());
@@ -44,6 +45,29 @@ const gameBoard = (() => {
             }
         }
     };
+
+
+    const _loadContents = () => {
+        board.style.display = 'none';
+        markContainer.style.display = 'none';
+        formTwo.style.display = 'none';
+        startButton.style.display = 'none';
+    }
+
+    const _openFormTwo = () => {
+        formOne.style.display = 'none';
+        formTwo.style.display = 'block';
+    }
+
+    const _showStartButton = () => {
+        formTwo.style.display = 'none';
+        startButton.style.display = 'block';
+    }
+
+    const _choosePiece = () => {
+        startButton.style.display = 'none';
+        markContainer.style.display = 'block';
+    }
 
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
@@ -68,7 +92,12 @@ const gameBoard = (() => {
 
 
     // bindEvents
+    document.addEventListener('DOMContentLoaded', _loadContents);
     markContainer.addEventListener('click', _getLetterChoice);
+    formOneSubmitButton.addEventListener('click', _openFormTwo);
+    formTwoSubmitButton.addEventListener('click', _showStartButton);
+    startButton.addEventListener('click', _choosePiece);
+
 
 
     return {
