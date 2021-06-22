@@ -2,9 +2,8 @@ const Player = (playerName, playerMark) => {
     return { playerName, playerMark };
 };
 
-const emma = Player('Emmanuel', 'x');
-const nev = Player('Nevis', 'o');
-
+const emma = Player();
+const nev = Player();
 
 const gameBoard = (() => {
     const gameBoardArray = ['x', 'o'];
@@ -38,9 +37,13 @@ const gameBoard = (() => {
         board.style.display = 'grid';
         markContainer.style.display = 'none';
         if (e.target.closest('button')) {
-            if (e.target.textContent.toLowerCase() === getPlayerOne.playerMark) {
+            if (e.target.textContent.toLowerCase() === 'x') {
+                emma.playerMark = e.target.textContent.toLowerCase();
+                nev.playerMark = e.target.nextElementSibling.textContent.toLowerCase();
                 _currentPlayer(e.target.textContent.toLowerCase());
-            } else if (e.target.textContent.toLowerCase() === getPlayerTwo.playerMark) {
+            } else if (e.target.textContent.toLowerCase() === 'o') {
+                emma.playerMark = e.target.textContent.toLowerCase();
+                nev.playerMark = e.target.previousElementSibling.textContent.toLowerCase();
                 _currentPlayer(e.target.textContent.toLowerCase());
             }
         }
@@ -97,6 +100,8 @@ const gameBoard = (() => {
     formOneSubmitButton.addEventListener('click', _openFormTwo);
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
+    emma.playerName = document.getElementById('player-one').value;
+    nev.playerName = document.getElementById('player-two').value;
 
 
 
@@ -147,10 +152,10 @@ const displayController = (() => {
         if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
             if (pos1 === pos2 && pos1 === pos3) {
                 switch (pos1) {
-                    case 'x':
+                    case emma.playerMark:
                         displayPlayOutcome.textContent = `${emma.playerName} is the winner`;
                         break;
-                    case 'o':
+                    case nev.playerMark:
                         displayPlayOutcome.textContent = `${nev.playerName} is the winner`;
                         break;
                 }
