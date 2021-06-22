@@ -9,6 +9,8 @@ const gameBoard = (() => {
     const gameBoardArray = ['x', 'o'];
     const getPlayerOne = emma;
     const getPlayerTwo = nev;
+    const displayPlayerPiece = document.createElement('div');
+    displayPlayerPiece.className = 'piece-box';
     let currentPlayerValue;
 
     // cacheDOM
@@ -35,7 +37,6 @@ const gameBoard = (() => {
 
     const _getLetterChoice = e => {
         board.style.display = 'grid';
-        markContainer.style.display = 'none';
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === 'x') {
                 emma.playerMark = e.target.textContent.toLowerCase();
@@ -46,6 +47,10 @@ const gameBoard = (() => {
                 nev.playerMark = e.target.previousElementSibling.textContent.toLowerCase();
                 _currentPlayer(e.target.textContent.toLowerCase());
             }
+            displayPlayerPiece.textContent = `${emma.playerName} gamepiece is '${emma.playerMark}'
+            while ${nev.playerName} gamepiece is '${nev.playerMark}'`;
+            board.prepend(displayPlayerPiece);
+            markContainer.style.display = 'none';
         }
     };
 
