@@ -2,16 +2,16 @@ const Player = (playerName, playerMark) => {
     return { playerName, playerMark };
 };
 
-const emma = Player();
-const nev = Player();
+const playerOne = Player();
+const playerTwo = Player();
 
 const gameBoard = (() => {
     const gameBoardArray = ['x', 'o'];
-    const getPlayerOne = emma;
-    const getPlayerTwo = nev;
+    const getPlayerOne = playerOne;
+    const getPlayerTwo = playerTwo;
     const displayPlayerPiece = document.createElement('div');
-    displayPlayerPiece.className = 'piece-box';
     let currentPlayerValue;
+    displayPlayerPiece.className = 'piece-div';
 
     // cacheDOM
     const markContainer = document.querySelector('.marks');
@@ -21,6 +21,8 @@ const gameBoard = (() => {
     const formOne = document.querySelector('#form-one');
     const formTwo = document.querySelector('#form-two');
     const startButton = document.querySelector('.gamestart');
+    playerOne.playerName = document.getElementById('player-one').value;
+    playerTwo.playerName = document.getElementById('player-two').value;
 
 
     const _currentPlayer = player => {
@@ -39,21 +41,20 @@ const gameBoard = (() => {
         board.style.display = 'grid';
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === 'x') {
-                emma.playerMark = e.target.textContent.toLowerCase();
-                nev.playerMark = e.target.nextElementSibling.textContent.toLowerCase();
+                playerOne.playerMark = e.target.textContent.toLowerCase();
+                playerTwo.playerMark = e.target.nextElementSibling.textContent.toLowerCase();
                 _currentPlayer(e.target.textContent.toLowerCase());
             } else if (e.target.textContent.toLowerCase() === 'o') {
-                emma.playerMark = e.target.textContent.toLowerCase();
-                nev.playerMark = e.target.previousElementSibling.textContent.toLowerCase();
+                playerOne.playerMark = e.target.textContent.toLowerCase();
+                playerTwo.playerMark = e.target.previousElementSibling.textContent.toLowerCase();
                 _currentPlayer(e.target.textContent.toLowerCase());
             }
-            displayPlayerPiece.textContent = `${emma.playerName} gamepiece is '${emma.playerMark}'
-            while ${nev.playerName} gamepiece is '${nev.playerMark}'`;
+            displayPlayerPiece.textContent = `${playerOne.playerName} gamepiece is '${playerOne.playerMark}'
+            while ${playerTwo.playerName} gamepiece is '${playerTwo.playerMark}'`;
             board.prepend(displayPlayerPiece);
             markContainer.style.display = 'none';
         }
     };
-
 
     const _loadContents = () => {
         board.style.display = 'none';
@@ -105,10 +106,7 @@ const gameBoard = (() => {
     formOneSubmitButton.addEventListener('click', _openFormTwo);
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
-    emma.playerName = document.getElementById('player-one').value;
-    nev.playerName = document.getElementById('player-two').value;
-
-
+    playerOne.playerName
 
     return {
         displayMark
@@ -119,9 +117,7 @@ const gameBoard = (() => {
 const displayController = (() => {
     let pos1, pos2, pos3;
     const winnerDiv = document.createElement('div');
-    const displayPlayOutcome = document.createElement('div');
-    winnerDiv.className = 'winner';
-    winnerDiv.appendChild(displayPlayOutcome);
+    winnerDiv.className = 'winner-div';
 
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board');
@@ -157,11 +153,11 @@ const displayController = (() => {
         if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
             if (pos1 === pos2 && pos1 === pos3) {
                 switch (pos1) {
-                    case emma.playerMark:
-                        displayPlayOutcome.textContent = `${emma.playerName} is the winner`;
+                    case playerOne.playerMark:
+                        winnerDiv.textContent = `${playerOne.playerName} is the winner`;
                         break;
-                    case nev.playerMark:
-                        displayPlayOutcome.textContent = `${nev.playerName} is the winner`;
+                    case playerTwo.playerMark:
+                        winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
                         break;
                 }
                 pos1 = pos2 = pos3 = '';
@@ -176,10 +172,11 @@ const displayController = (() => {
             if (squares[i].textContent === '')
                 return false;
         }
-        displayPlayOutcome.textContent = 'The game is a tie';
-        getBoardContainer.appendChild(displayPlayOutcome);
+        winnerDiv.textContent = 'The game is a tie';
+        getBoardContainer.appendChild(winnerDiv);
         return true;
     }
+
 
     // bindEvents
     getBoardContainer.addEventListener('click', gameBoard.displayMark);
@@ -188,7 +185,6 @@ const displayController = (() => {
     const _removeHandler = () => {
         getBoardContainer.removeEventListener('click', gameBoard.displayMark);
     }
-
 
     return {
         getSquaresIndex,
