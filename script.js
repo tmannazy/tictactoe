@@ -20,7 +20,7 @@ const gameBoard = (() => {
     const formTwoSubmitButton = document.querySelector('#form-two-button');
     const formOne = document.querySelector('#form-one');
     const formTwo = document.querySelector('#form-two');
-    const startButton = document.querySelector('.gamestart');
+    const startButton = document.querySelector('#start-game');
     playerOne.playerName = document.getElementById('player-one').value;
     playerTwo.playerName = document.getElementById('player-two').value;
 
@@ -53,6 +53,9 @@ const gameBoard = (() => {
             while ${playerTwo.playerName} gamepiece is '${playerTwo.playerMark}'`;
             board.prepend(displayPlayerPiece);
             markContainer.style.display = 'none';
+            startButton.textContent = 'New Game';
+            startButton.style.display = 'block';
+            // _resetGame();
         }
     };
 
@@ -76,6 +79,11 @@ const gameBoard = (() => {
     const _choosePiece = () => {
         startButton.style.display = 'none';
         markContainer.style.display = 'block';
+    }
+
+    const _resetGame = () => {
+        displayController.clearBoard();
+        displayPlayerPiece.textContent = '';
     }
 
     const displayMark = e => {
@@ -105,8 +113,11 @@ const gameBoard = (() => {
     markContainer.addEventListener('click', _getLetterChoice);
     formOneSubmitButton.addEventListener('click', _openFormTwo);
     formTwoSubmitButton.addEventListener('click', _showStartButton);
-    startButton.addEventListener('click', _choosePiece);
-    playerOne.playerName
+    startButton.addEventListener('click', () => {
+        _choosePiece();
+        _resetGame();
+    });
+
 
     return {
         displayMark
@@ -177,17 +188,33 @@ const displayController = (() => {
         return true;
     }
 
+    const clearBoard = () => {
+        squares.forEach(item => {
+            item.textContent = '';
+        });
+        playerOne.playerName = '';
+        playerTwo.playerName = '';
+        playerOne.playerMark = '';
+        playerTwo.playerMark = '';
+        getBoardContainer.removeChild(getBoardContainer.childNodes[getBoardContainer.childNodes.length - 1]);
+        _addHandler();
+    }
 
     // bindEvents
-    getBoardContainer.addEventListener('click', gameBoard.displayMark);
+    const _addHandler = () => {
+        getBoardContainer.addEventListener('click', gameBoard.displayMark);
+    }
 
     // removeEvents
     const _removeHandler = () => {
         getBoardContainer.removeEventListener('click', gameBoard.displayMark);
     }
 
+    _addHandler();
+
     return {
         getSquaresIndex,
+        clearBoard
     };
 
 })();
