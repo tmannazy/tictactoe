@@ -24,8 +24,6 @@ const gameBoard = (() => {
     const newGameButton = document.querySelector('.new-game');
     const getPlayerOneName = document.getElementById('player-one');
     const getPlayerTwoName = document.getElementById('player-two');
-    playerOne.playerName = getPlayerOneName.value;
-    playerTwo.playerName = getPlayerTwoName.value;
 
     const _currentPlayer = player => {
         switch (player) {
@@ -67,11 +65,13 @@ const gameBoard = (() => {
     }
 
     const _openFormTwo = () => {
+        playerOne.playerName = getPlayerOneName.value;
         formOne.style.display = 'none';
         formTwo.style.display = 'block';
     }
 
     const _showStartButton = () => {
+        playerTwo.playerName = getPlayerTwoName.value;
         formTwo.style.display = 'none';
         startButton.style.display = 'block';
     }
@@ -88,6 +88,7 @@ const gameBoard = (() => {
         _loadContents();
         formOne.style.display = 'block';
         _playersLetter();
+        displayController.addHandler();
     }
 
     const displayMark = e => {
@@ -120,7 +121,7 @@ const gameBoard = (() => {
     newGameButton.addEventListener('click', _resetGame);
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
-    }
+    };
     [getPlayerOneName, getPlayerTwoName].forEach(item => {
         item.addEventListener('focus', () => {
             item.value = '';
@@ -128,6 +129,7 @@ const gameBoard = (() => {
     });
 
     _playersLetter();
+
 
     return {
         displayMark
@@ -210,7 +212,7 @@ const displayController = (() => {
     }
 
     // bindEvents
-    const _addHandler = () => {
+    const addHandler = () => {
         getBoardContainer.addEventListener('click', gameBoard.displayMark);
     }
 
@@ -219,11 +221,12 @@ const displayController = (() => {
         getBoardContainer.removeEventListener('click', gameBoard.displayMark);
     }
 
-    _addHandler();
+    addHandler();
+
 
     return {
         getSquaresIndex,
         clearBoard,
+        addHandler
     };
-
 })();
