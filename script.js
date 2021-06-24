@@ -22,9 +22,10 @@ const gameBoard = (() => {
     const formTwo = document.querySelector('#form-two');
     const startButton = document.querySelector('.start-game');
     const newGameButton = document.querySelector('.new-game');
-    playerOne.playerName = document.getElementById('player-one').value;
-    playerTwo.playerName = document.getElementById('player-two').value;
-
+    const getPlayerOneName = document.getElementById('player-one');
+    const getPlayerTwoName = document.getElementById('player-two');
+    playerOne.playerName = getPlayerOneName.value;
+    playerTwo.playerName = getPlayerTwoName.value;
 
     const _currentPlayer = player => {
         switch (player) {
@@ -121,6 +122,11 @@ const gameBoard = (() => {
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
     }
+    [getPlayerOneName, getPlayerTwoName].forEach(item => {
+        item.addEventListener('focus', () => {
+            item.value = '';
+        });
+    });
 
     _playersLetter();
 
