@@ -20,7 +20,8 @@ const gameBoard = (() => {
     const formTwoSubmitButton = document.querySelector('#form-two-button');
     const formOne = document.querySelector('#form-one');
     const formTwo = document.querySelector('#form-two');
-    const startButton = document.querySelector('#start-game');
+    const startButton = document.querySelector('.start-game');
+    const newGameButton = document.querySelector('.new-game');
     playerOne.playerName = document.getElementById('player-one').value;
     playerTwo.playerName = document.getElementById('player-two').value;
 
@@ -53,9 +54,7 @@ const gameBoard = (() => {
             while ${playerTwo.playerName} gamepiece is '${playerTwo.playerMark}'`;
             board.prepend(displayPlayerPiece);
             markContainer.style.display = 'none';
-            startButton.textContent = 'New Game';
-            startButton.style.display = 'block';
-            // _resetGame();
+            newGameButton.style.display = 'block';
         }
     };
 
@@ -84,6 +83,11 @@ const gameBoard = (() => {
     const _resetGame = () => {
         displayController.clearBoard();
         displayPlayerPiece.textContent = '';
+        newGameButton.style.display = 'none';
+        markContainer.style.display = 'block';
+        board.style.display = 'none';
+        _playersLetter();
+        displayController.addHandler();
     }
 
     const displayMark = e => {
@@ -110,14 +114,15 @@ const gameBoard = (() => {
 
     // bindEvents
     document.addEventListener('DOMContentLoaded', _loadContents);
-    markContainer.addEventListener('click', _getLetterChoice);
     formOneSubmitButton.addEventListener('click', _openFormTwo);
     formTwoSubmitButton.addEventListener('click', _showStartButton);
-    startButton.addEventListener('click', () => {
-        _choosePiece();
-        _resetGame();
-    });
+    startButton.addEventListener('click', _choosePiece);
+    newGameButton.addEventListener('click', _resetGame);
+    const _playersLetter = () => {
+        markContainer.addEventListener('click', _getLetterChoice);
+    }
 
+    _playersLetter();
 
     return {
         displayMark
@@ -196,12 +201,11 @@ const displayController = (() => {
         playerTwo.playerName = '';
         playerOne.playerMark = '';
         playerTwo.playerMark = '';
-        getBoardContainer.removeChild(getBoardContainer.childNodes[getBoardContainer.childNodes.length - 1]);
-        _addHandler();
+        winnerDiv.textContent = '';
     }
 
     // bindEvents
-    const _addHandler = () => {
+    const addHandler = () => {
         getBoardContainer.addEventListener('click', gameBoard.displayMark);
     }
 
@@ -210,11 +214,12 @@ const displayController = (() => {
         getBoardContainer.removeEventListener('click', gameBoard.displayMark);
     }
 
-    _addHandler();
+    addHandler();
 
     return {
         getSquaresIndex,
-        clearBoard
+        clearBoard,
+        addHandler
     };
 
 })();
