@@ -85,10 +85,9 @@ const gameBoard = (() => {
         displayController.clearBoard();
         displayPlayerPiece.textContent = '';
         newGameButton.style.display = 'none';
-        markContainer.style.display = 'block';
-        board.style.display = 'none';
+        _loadContents();
+        formOne.style.display = 'block';
         _playersLetter();
-        displayController.addHandler();
     }
 
     const displayMark = e => {
@@ -211,7 +210,7 @@ const displayController = (() => {
     }
 
     // bindEvents
-    const addHandler = () => {
+    const _addHandler = () => {
         getBoardContainer.addEventListener('click', gameBoard.displayMark);
     }
 
@@ -220,12 +219,11 @@ const displayController = (() => {
         getBoardContainer.removeEventListener('click', gameBoard.displayMark);
     }
 
-    addHandler();
+    _addHandler();
 
     return {
         getSquaresIndex,
         clearBoard,
-        addHandler
     };
 
 })();
