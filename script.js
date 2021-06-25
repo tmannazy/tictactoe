@@ -2,28 +2,28 @@ const Player = (playerName, playerMark) => {
     return { playerName, playerMark };
 };
 
-const playerOne = Player();
+const playerOne = Player()
 const playerTwo = Player();
 
 const gameBoard = (() => {
-    const gameBoardArray = ['x', 'o'];
-    const getPlayerOne = playerOne;
-    const getPlayerTwo = playerTwo;
-    const displayPlayerPiece = document.createElement('div');
+    const gameBoardArray = ['x', 'o'],
+        getPlayerOne = playerOne,
+        getPlayerTwo = playerTwo,
+        displayPlayerPiece = document.createElement('div');
     let currentPlayerValue;
     displayPlayerPiece.className = 'piece-div';
 
     // cacheDOM
-    const markContainer = document.querySelector('.marks');
-    const board = document.querySelector('.game-board');
-    const formOneSubmitButton = document.querySelector('#form-one-button');
-    const formTwoSubmitButton = document.querySelector('#form-two-button');
-    const formOne = document.querySelector('#form-one');
-    const formTwo = document.querySelector('#form-two');
-    const startButton = document.querySelector('.start-game');
-    const newGameButton = document.querySelector('.new-game');
-    const getPlayerOneName = document.getElementById('player-one');
-    const getPlayerTwoName = document.getElementById('player-two');
+    const markContainer = document.querySelector('.marks'),
+        board = document.querySelector('.game-board'),
+        formOneSubmitButton = document.querySelector('#form-one-button'),
+        formTwoSubmitButton = document.querySelector('#form-two-button'),
+        formOne = document.querySelector('#form-one'),
+        formTwo = document.querySelector('#form-two'),
+        startButton = document.querySelector('.start-game'),
+        newGameButton = document.querySelector('.new-game'),
+        getPlayerOneName = document.getElementById('player-one'),
+        getPlayerTwoName = document.getElementById('player-two');
 
     const _currentPlayer = player => {
         switch (player) {
@@ -143,8 +143,8 @@ const displayController = (() => {
     winnerDiv.className = 'winner-div';
 
     // cacheDOM
-    const getBoardContainer = document.querySelector('.game-board');
-    const squares = getBoardContainer.querySelectorAll('.box');
+    const getBoardContainer = document.querySelector('.game-board'),
+        squares = getBoardContainer.querySelectorAll('.box');
 
 
     const getSquaresIndex = () => {
