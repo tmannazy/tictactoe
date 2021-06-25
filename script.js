@@ -194,10 +194,13 @@ const displayController = (() => {
         for (let i = 0; i < 9; i++) {
             if (squares[i].textContent === '')
                 return false;
+            {
+                return true;
+            }
         }
         winnerDiv.textContent = 'The game is a tie';
         getBoardContainer.appendChild(winnerDiv);
-        return true;
+        _removeHandler();
     }
 
     const clearBoard = () => {
