@@ -113,6 +113,17 @@ const gameBoard = (() => {
     }
 
 
+    const computerMove = () => {
+        let compPiece = '';
+        const randomPick = Math.floor(Math.random() * 2);
+        if (randomPick === 0) {
+            compPiece = gameBoardArray[0];
+        } else if (randomPick === 1) {
+            compPiece = gameBoardArray[1];
+        }
+        return compPiece;
+    }
+
     // bindEvents
     document.addEventListener('DOMContentLoaded', _loadContents);
     formOneSubmitButton.addEventListener('click', _openFormTwo);
@@ -132,7 +143,8 @@ const gameBoard = (() => {
 
 
     return {
-        displayMark
+        displayMark,
+        computerMove
     };
 })();
 
