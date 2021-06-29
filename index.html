@@ -5,31 +5,39 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Kranky&family=Londrina+Shadow&family=Monoton&family=Potta+One&family=Satisfy&display=swap"
+            rel="stylesheet">
         <link rel="stylesheet" href="style.css">
         <title>Tic Tac Toe</title>
     </head>
 
     <body>
         <main>
-            <form id="form-one">
-                <!-- action="javascript:void(0)" -->
-                <p>enter your name</p>
-                <label for="player-one">player one</label>
-                <input type="text" name="player-one" id="player-one">
-                <button id="form-one-button" type="button">Submit</button>
-            </form>
-            <form id="form-two">
-                <p>enter your name</p>
-                <label for=" player-two">player two</label>
-                <input type="text" name="player-two" id="player-two">
-                <button id="form-two-button" type="button">submit</button>
-            </form>
-            <form id="player-com">
-                <p>enter your name</p>
-                <label for=" player-computer">player</label>
-                <input type="text" name="player-computer" id="player-computer">
-                <button id="form-player-com" type="button">submit</button>
-            </form>
+            <h1>tic tac toe</h1>
+            <div class="form-container">
+                <form id="form-one">
+                    <!-- action="javascript:void(0)" -->
+                    <p>enter your name</p>
+                    <label for="player-one">player one</label>
+                    <input type="text" name="player-one" id="player-one">
+                    <button id="form-one-button" type="button">Submit</button>
+                </form>
+                <form id="form-two">
+                    <p>enter your name</p>
+                    <label for=" player-two">player two</label>
+                    <input type="text" name="player-two" id="player-two">
+                    <button id="form-two-button" type="button">submit</button>
+                </form>
+                <form id="player-com">
+                    <p>enter your name</p>
+                    <label for=" player-computer">player</label>
+                    <input type="text" name="player-computer" id="player-computer">
+                    <button id="form-player-com" type="button">submit</button>
+                </form>
+            </div>
             <div class="marks">
                 <p>choose your piece</p>
                 <button class="selectMark">x</button>
