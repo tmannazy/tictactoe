@@ -4,6 +4,66 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #F0F7D4;
+}
+
+h1 {
+    text-align: center;
+    padding: 30px;
+    border: 1px solid red;
+    background-color: #34091C;
+    color: #F0F7D4;
+    text-transform: capitalize;
+    /* font-family: 'Satisfy', cursive; */
+    /* font-family: 'Kranky', cursive; */
+    /* font-family: 'Londrina Shadow', cursive; */
+    font-family: 'Monoton', cursive;
+    /* font-family: 'Potta One', cursive; */
+    font-size: 40px;
+}
+
+.form-container {
+    /* margin: 20px auto; */
+    background-color: #34091c93;
+    border: 1px solid red;
+    text-align: center;
+    /* padding: 250px; */
+}
+
+input[type=text] {
+    width: 30%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    outline: none;
+}
+
+button {
+    background-color: #B2D732;
+    border: none;
+    color: #34091C;
+    padding: 16px 32px;
+    text-decoration: none;
+    text-transform: capitalize;
+    margin: 4px 2px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+label,
+p {
+    padding: 12px 12px 12px 0;
+    color: #F0F7D4;
+    text-transform: capitalize;
+    font-family: 'Satisfy', cursive;
+    font-size: x-large;
+    font-weight: 800;
+    /* display: inline-block; */
+}
+
 .game-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
