@@ -200,6 +200,9 @@ const displayController = (() => {
 
 
     const getSquaresIndex = () => {
+        if (_stalemateGame()) {
+            return true;
+        }
         return _gameWinner(0, 1, 2) ||
             _gameWinner(3, 4, 5) ||
             _gameWinner(6, 7, 8) ||
@@ -207,8 +210,7 @@ const displayController = (() => {
             _gameWinner(1, 4, 7) ||
             _gameWinner(2, 5, 8) ||
             _gameWinner(0, 4, 8) ||
-            _gameWinner(2, 4, 6) ||
-            _stalemateGame();
+            _gameWinner(2, 4, 6)
     }
 
     const _gameWinner = (p1, p2, p3) => {
@@ -245,7 +247,7 @@ const displayController = (() => {
     const _stalemateGame = () => {
         for (let i = 0; i < 9; i++) {
             if (squares[i].textContent === '')
-                return true;
+                return false;
         }
         winnerDiv.textContent = 'The game is a tie';
         getBoardContainer.appendChild(winnerDiv);
