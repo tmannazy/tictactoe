@@ -24,6 +24,7 @@ const gameBoard = (() => {
         formOne = document.querySelector('#form-one'),
         formTwo = document.querySelector('#form-two'),
         playerCom = document.querySelector('#player-com'),
+        buttonContainer = document.querySelector('.gamestart'),
         startButton = document.querySelector('.start-game'),
         newGameButton = document.querySelector('.new-game'),
         computerButton = document.querySelector('.computer-game'),
@@ -45,6 +46,9 @@ const gameBoard = (() => {
     };
 
     const _getLetterChoice = e => {
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.position = 'absolute';
+        buttonContainer.style.left = '50px';
         board.style.display = 'grid';
         if (e.target.closest('button')) {
             if (e.target.textContent.toLowerCase() === 'x') {
@@ -71,6 +75,7 @@ const gameBoard = (() => {
         startButton.style.display = 'none';
         playerCom.style.display = 'none';
         computerButton.style.display = 'none';
+        buttonContainer.style.display = 'none';
     }
 
     const _openFormTwo = () => {
@@ -83,11 +88,13 @@ const gameBoard = (() => {
         playerTwo.playerName = getPlayerTwoName.value;
         formTwo.style.display = 'none';
         formContainer.style.display = 'none';
+        buttonContainer.style.display = 'block';
         startButton.style.display = 'block';
     }
 
     const _choosePiece = () => {
         startButton.style.display = 'none';
+        buttonContainer.style.display = 'none';
         markContainer.style.display = 'block';
     }
 
