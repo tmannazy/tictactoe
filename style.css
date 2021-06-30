@@ -11,7 +11,7 @@ body {
 h1 {
     text-align: center;
     padding: 30px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     background-color: #34091C;
     color: #F0F7D4;
     text-transform: capitalize;
@@ -26,18 +26,37 @@ h1 {
 .form-container {
     /* margin: 20px auto; */
     background-color: #34091c93;
-    border: 1px solid red;
+    border-radius: 15px;
+    box-shadow:
+        inset 1px 5px 8px 9px #f0f7d405,
+        2px 4px 9px 1px #34091C,
+        1em 0 1em -1em rgba(0, 0, 0, 0.931);
+    /* border: 1px solid red; */
     text-align: center;
-    /* padding: 250px; */
+    padding: 30px 100px 150px;
+    position: absolute;
+    z-index: 1;
+    top: 120px;
+    left: 300px;
+    transition: .3ms;
 }
 
 input[type=text] {
-    width: 30%;
+    width: 50%;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: none;
+    border-radius: 5px;
     resize: vertical;
     outline: none;
+    font-family: 'Kranky', cursive;
+    font-weight: 600;
+    font-size: large;
+    color: #34091C;
+}
+
+input[type=text]:focus {
+    background-color: #34091C;
+    color: #F0F7D4;
 }
 
 button {
@@ -52,6 +71,16 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    background-color: #B8145B;
+    color: #B2D732;
+}
+
+button:active {
+    background-color: #34091C;
+    color: #B2D732;
+}
+
 
 label,
 p {
@@ -61,7 +90,25 @@ p {
     font-family: 'Satisfy', cursive;
     font-size: x-large;
     font-weight: 800;
-    /* display: inline-block; */
+}
+
+.marks {
+    background-color: #34091C;
+}
+
+.gamestart {
+    margin: 50px auto;
+    padding: 50px;
+    width: 250px;
+    height: 150px;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    background-color: #34091C;
+}
+
+.gamestart button {
+    border-radius: 5px;
+    width: 150px;
 }
 
 .game-board {
@@ -76,7 +123,7 @@ p {
         "winnerDiv winnerDiv winnerDiv";
     gap: 10px;
     padding: 0 200px;
-    margin: 100px 200px 20px;
+    margin: 0 200px 20px;
 }
 
 .box {
@@ -89,6 +136,7 @@ p {
 .piece-div {
     grid-area: pieceDiv;
     margin: 0 auto;
+    padding: 50px 20px 10px;
 }
 
 .box1 {
