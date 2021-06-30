@@ -126,10 +126,23 @@ p {
 }
 
 .box {
-    background-color: cyan;
+    background-color: #C21460;
+    color: #F0F7D4;
     height: 10vw;
     text-align: center;
-    padding: 50px;
+    padding: 2px;
+    font-family: 'Londrina Shadow', cursive;
+    font-size: 6rem;
+    font-weight: 600;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.box:hover {
+    background-color: #F0F7D4;
+    color: #C21460;
+    border: 2px solid #B8145B;
+    transform: scale(1);
 }
 
 .piece-div {
