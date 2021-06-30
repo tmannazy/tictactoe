@@ -60,8 +60,8 @@ const gameBoard = (() => {
                 playerTwo.playerMark = e.target.previousElementSibling.textContent.toLowerCase();
                 _currentPlayer(e.target.textContent.toLowerCase());
             }
-            displayPlayerPiece.textContent = `${playerOne.playerName} gamepiece is '${playerOne.playerMark}'
-            while ${playerTwo.playerName} gamepiece is '${playerTwo.playerMark}'`;
+            displayPlayerPiece.innerHTML = `<span>${playerOne.playerName}</span> gamepiece is <span>${playerOne.playerMark}</span>
+            while <span>${playerTwo.playerName}</span> gamepiece is <span>${playerTwo.playerMark}</span>`;
             board.prepend(displayPlayerPiece);
             markContainer.style.display = 'none';
             newGameButton.style.display = 'block';
