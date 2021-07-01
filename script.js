@@ -31,7 +31,9 @@ const gameBoard = (() => {
         getPlayerOneName = document.getElementById('player-one'),
         getPlayerTwoName = document.getElementById('player-two'),
         getPlayerVsCompName = document.getElementById('player-computer'),
-        userFocus = [getPlayerOneName, getPlayerTwoName, getPlayerVsCompName];
+        userFocus = [getPlayerOneName, getPlayerTwoName, getPlayerVsCompName],
+        keyEvents = [formOneSubmitButton, formTwoSubmitButton];
+
 
     const _currentPlayer = player => {
         switch (player) {
@@ -78,7 +80,7 @@ const gameBoard = (() => {
         buttonContainer.style.display = 'none';
     }
 
-    const _openFormTwo = () => {
+    const _openFormTwo = (event) => {
         playerOne.playerName = getPlayerOneName.value;
         formOne.style.display = 'none';
         formTwo.style.display = 'block';
@@ -105,6 +107,8 @@ const gameBoard = (() => {
         _loadContents();
         formContainer.style.display = 'block';
         formOne.style.display = 'block';
+        buttonContainer.style.display = 'none';
+        buttonContainer.style.position = 'static';
         _playersLetter();
         displayController.addHandler();
     }
@@ -164,6 +168,7 @@ const gameBoard = (() => {
 
     // bindEvents
     document.addEventListener('DOMContentLoaded', _loadContents);
+    document.addEventListener('keydown', handleKeyDown);
     formOneSubmitButton.addEventListener('click', _openFormTwo);
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
@@ -178,6 +183,22 @@ const gameBoard = (() => {
             item.value = '';
         });
     });
+
+
+    function handleKeyDown(event) {
+        for (let i = 0; i < keyEvents.length; i++) {
+            if (keyEvents[i] === formOneSubmitButton && event.key === 'Enter') {
+                event.preventDefault();
+                _openFormTwo();
+                break;
+            }
+            else if (keyEvents[i] === formTwoSubmitButton && event.key === 'Enter') {
+                event.preventDefault();
+                _showStartButton();
+                break;
+            }
+        }
+    }
 
     _playersLetter();
 
