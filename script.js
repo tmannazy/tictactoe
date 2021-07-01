@@ -256,9 +256,9 @@ const displayController = (() => {
                             if (index === p1 || index === p2 || index === p3) {
                                 item.style.backgroundColor = ' #34091C';
                                 item.style.color = '#B2D732';
-                                item.style.borderColor = '#F0F7D4';
-                                item.style.borderWidth = '3px';
-                                item.style.borderStyle = 'solid';
+                                item.style.borderColor = '#B2D732';
+                                item.style.borderWidth = '5px';
+                                item.style.borderStyle = 'outset';
                             }
                         });
                         winnerDiv.textContent = `${playerOne.playerName} is the winner`;
@@ -268,9 +268,9 @@ const displayController = (() => {
                             if (index === p1 || index === p2 || index === p3) {
                                 item.style.backgroundColor = '#34091C';
                                 item.style.color = '#B2D732';
-                                item.style.borderColor = '#F0F7D4';
-                                item.style.borderWidth = '3px';
-                                item.style.borderStyle = 'solid';
+                                item.style.borderColor = '#B2D732';
+                                item.style.borderWidth = '5px';
+                                item.style.borderStyle = 'outset';
                             }
                         });
                         winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
