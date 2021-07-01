@@ -24,7 +24,6 @@ h1 {
 }
 
 .form-container {
-    /* margin: 20px auto; */
     background-color: #34091c93;
     border-radius: 15px;
     box-shadow:
@@ -176,7 +175,10 @@ p {
     grid-area: box1;
 }
 
-.box2 {
+.box2Greetings Mr Chuka,
+
+Thank you for your response but I think you need to understand my plight. As it is now,
+there is no access to confirm my successful transaction on the unizik portal. I have attached a screen to this email as reference to what I am experiencing. It is entirely generating a new RRR to start payment over. Kindly check it out and help me work on it so I can start the application form. Thanks again. Best regards. {
     grid-area: box2;
 }
 
@@ -211,6 +213,15 @@ p {
 .winner-div {
     grid-area: winnerDiv;
     margin: 0 auto;
+    text-transform: capitalize;
+    background-color: #F0F7D4;
+    color: #34091C;
+    font-size: large;
+    font-weight: 600;
+    border-radius: 7px;
+    padding: 2px;
+    text-shadow: 2px 5px 5px #34091C,
+        3px 1px 4px #F0F7D4;
 }
 
 .marks {
@@ -284,5 +295,23 @@ p {
         border-bottom-left-radius: 20px;
         border-top-right-radius: 20px;
         height: 25vh;
+    }
+
+    .winner-div {
+        grid-area: winnerDiv;
+        margin: 0 auto;
+        text-transform: capitalize;
+        background-color: #F0F7D4e5;
+        color: #34091C;
+        font-size: xx-large;
+        font-weight: 800;
+        border-radius: 7px;
+        padding: 70px;
+        text-shadow: 2px 5px 5px #34091C, 3px 1px 4px #F0F7D4, 5px 10px 6px #34091cf1;
+        position: relative;
+        top: -300px;
+        z-index: 10;
+        max-width: 100%;
+        text-align: center;
     }
 }
