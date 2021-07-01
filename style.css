@@ -72,14 +72,13 @@ button {
 
 button:hover {
     background-color: #B8145B;
-    color: #B2D732;
+    color: #F0F7D4;
 }
 
 button:active {
     background-color: #34091C;
     color: #B2D732;
 }
-
 
 label,
 p {
@@ -139,6 +138,7 @@ p {
 }
 
 .box:hover {
+    text-transform: uppercase;
     background-color: #F0F7D4;
     color: #C21460;
     border: 2px solid #B8145B;
@@ -225,4 +225,64 @@ p {
 
 .new-game {
     display: none;
+}
+
+@media only screen and (max-width: 1080px) {
+    .form-container {
+        background-color: #34091c93;
+        border-radius: 15px;
+        box-shadow:
+            inset 1px 5px 8px 9px #f0f7d405,
+            2px 4px 9px 1px #34091C,
+            1em 0 1em -1em rgba(0, 0, 0, 0.931);
+        text-align: center;
+        padding: 30px 100px 150px;
+        transition: .3ms;
+        position: static !important;
+    }
+
+    .gamestart {
+        display: block;
+        position: static !important;
+        margin: 0 auto;
+        padding: 40px;
+        width: 200px;
+        border-bottom-left-radius: 25%;
+        border-bottom-right-radius: 25%;
+        background-color: #F0F7D4;
+    }
+
+    .game-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas: "pieceDiv pieceDiv pieceDiv""box1 box2 box3""box4 box5 box6""box7 box8 box9""winnerDiv winnerDiv winnerDiv";
+        gap: 10px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .piece-div {
+        grid-area: pieceDiv;
+        text-align: center;
+        margin: 0 auto;
+        padding: 0;
+        background-color: #34091C;
+        color: #F0F7D4;
+        font-family: 'Potta One', cursive;
+        font-size: large;
+    }
+
+    .box {
+        background-color: #C21460;
+        color: #F0F7D4;
+        text-align: center;
+        padding: 2px;
+        font-family: 'Londrina Shadow', cursive;
+        font-size: 6rem;
+        font-weight: 600;
+        border-bottom-left-radius: 20px;
+        border-top-right-radius: 20px;
+        height: 25vh;
+    }
 }
