@@ -261,6 +261,7 @@ const displayController = (() => {
                                 item.style.borderStyle = 'outset';
                             }
                         });
+                        winnerDiv.classList.add('winner-div');
                         winnerDiv.textContent = `${playerOne.playerName} is the winner`;
                         break;
                     case playerTwo.playerMark:
@@ -273,6 +274,7 @@ const displayController = (() => {
                                 item.style.borderStyle = 'outset';
                             }
                         });
+                        winnerDiv.classList.add('winner-div');
                         winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
                         break;
                 }
@@ -288,6 +290,7 @@ const displayController = (() => {
             if (squares[i].textContent === '')
                 return false;
         }
+        winnerDiv.classList.add('winner-div');
         winnerDiv.textContent = 'The game is a tie';
         getBoardContainer.appendChild(winnerDiv);
         _removeHandler();
@@ -296,11 +299,17 @@ const displayController = (() => {
     const clearBoard = () => {
         squares.forEach(item => {
             item.textContent = '';
+            item.style.backgroundColor = '';
+            item.style.color = '';
+            item.style.borderColor = '';
+            item.style.borderWidth = '';
+            item.style.borderStyle = '';
         });
         playerOne.playerName = '';
         playerTwo.playerName = '';
         playerOne.playerMark = '';
         playerTwo.playerMark = '';
+        winnerDiv.classList.remove('winner-div');
         winnerDiv.textContent = '';
     }
 
