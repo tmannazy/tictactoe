@@ -252,9 +252,27 @@ const displayController = (() => {
             if (pos1 === pos2 && pos1 === pos3) {
                 switch (pos1) {
                     case playerOne.playerMark:
+                        squares.forEach((item, index) => {
+                            if (index === p1 || index === p2 || index === p3) {
+                                item.style.backgroundColor = ' #34091C';
+                                item.style.color = '#B2D732';
+                                item.style.borderColor = '#F0F7D4';
+                                item.style.borderWidth = '3px';
+                                item.style.borderStyle = 'solid';
+                            }
+                        });
                         winnerDiv.textContent = `${playerOne.playerName} is the winner`;
                         break;
                     case playerTwo.playerMark:
+                        squares.forEach((item, index) => {
+                            if (index === p1 || index === p2 || index === p3) {
+                                item.style.backgroundColor = '#34091C';
+                                item.style.color = '#B2D732';
+                                item.style.borderColor = '#F0F7D4';
+                                item.style.borderWidth = '3px';
+                                item.style.borderStyle = 'solid';
+                            }
+                        });
                         winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
                         break;
                 }
