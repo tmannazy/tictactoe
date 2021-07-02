@@ -2,16 +2,14 @@ const Player = (playerName, playerMark) => {
     return { playerName, playerMark };
 };
 
-const playerOne = Player()
-const playerTwo = Player();
+const playerOne = Player(), playerTwo = Player();
 
 const gameBoard = (() => {
     const gameBoardArray = ['x', 'o'],
         getPlayerOne = playerOne,
         getPlayerTwo = playerTwo,
         displayPlayerPiece = document.createElement('div');
-    let currentPlayerValue,
-        compPiece;
+    let currentPlayerValue, compPiece;
     displayPlayerPiece.className = 'piece-div';
 
     // cacheDOM
@@ -107,8 +105,7 @@ const gameBoard = (() => {
         _loadContents();
         formContainer.style.display = 'block';
         formOne.style.display = 'block';
-        buttonContainer.style.display = 'none';
-        buttonContainer.style.position = 'static';
+        buttonContainer.setAttribute('style', 'display: none; position: static;');
         _playersLetter();
         displayController.addHandler();
     }
@@ -254,11 +251,7 @@ const displayController = (() => {
                     case playerOne.playerMark:
                         squares.forEach((item, index) => {
                             if (index === p1 || index === p2 || index === p3) {
-                                item.style.backgroundColor = ' #34091C';
-                                item.style.color = '#B2D732';
-                                item.style.borderColor = '#B2D732';
-                                item.style.borderWidth = '5px';
-                                item.style.borderStyle = 'outset';
+                                item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
                             }
                         });
                         winnerDiv.classList.add('winner-div');
@@ -267,11 +260,7 @@ const displayController = (() => {
                     case playerTwo.playerMark:
                         squares.forEach((item, index) => {
                             if (index === p1 || index === p2 || index === p3) {
-                                item.style.backgroundColor = '#34091C';
-                                item.style.color = '#B2D732';
-                                item.style.borderColor = '#B2D732';
-                                item.style.borderWidth = '5px';
-                                item.style.borderStyle = 'outset';
+                                item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732');
                             }
                         });
                         winnerDiv.classList.add('winner-div');
@@ -299,18 +288,10 @@ const displayController = (() => {
     const clearBoard = () => {
         squares.forEach(item => {
             item.textContent = '';
-            item.style.backgroundColor = '';
-            item.style.color = '';
-            item.style.borderColor = '';
-            item.style.borderWidth = '';
-            item.style.borderStyle = '';
+            item.setAttribute('style', 'color:; background-color:; border:;');
         });
-        playerOne.playerName = '';
-        playerTwo.playerName = '';
-        playerOne.playerMark = '';
-        playerTwo.playerMark = '';
+        playerOne.playerName = playerTwo.playerName = playerOne.playerMark = playerTwo.playerMark = winnerDiv.textContent = '';
         winnerDiv.classList.remove('winner-div');
-        winnerDiv.textContent = '';
     }
 
     // bindEvents
