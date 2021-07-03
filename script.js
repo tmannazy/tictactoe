@@ -18,17 +18,14 @@ const gameBoard = (() => {
         formContainer = document.querySelector('.form-container'),
         formOneSubmitButton = document.querySelector('#form-one-button'),
         formTwoSubmitButton = document.querySelector('#form-two-button'),
-        formPlayerComSubmitButton = document.querySelector('#form-player-com'),
         formOne = document.querySelector('#form-one'),
         formTwo = document.querySelector('#form-two'),
         playerCom = document.querySelector('#player-com'),
         buttonContainer = document.querySelector('.gamestart'),
         startButton = document.querySelector('.start-game'),
         newGameButton = document.querySelector('.new-game'),
-        computerButton = document.querySelector('.computer-game'),
         getPlayerOneName = document.getElementById('player-one'),
         getPlayerTwoName = document.getElementById('player-two'),
-        getPlayerVsCompName = document.getElementById('player-computer'),
         userFocus = [getPlayerOneName, getPlayerTwoName, getPlayerVsCompName],
         keyEvents = [formOneSubmitButton, formTwoSubmitButton];
 
@@ -73,8 +70,6 @@ const gameBoard = (() => {
         markContainer.style.display = 'none';
         formTwo.style.display = 'none';
         startButton.style.display = 'none';
-        playerCom.style.display = 'none';
-        computerButton.style.display = 'none';
         buttonContainer.style.display = 'none';
     }
 
@@ -131,37 +126,6 @@ const gameBoard = (() => {
         }
     }
 
-    // const computerMove = () => {
-    //     playerCom.style.display = 'block';
-    //     playerOne.playerName = 'Computer';
-    //     formOne.style.display = 'none';
-    //     formTwo.style.display = 'none';
-    //     const randomPick = Math.floor(Math.random() * 2);
-    //     switch (randomPick) {
-    //         case 0:
-    //             compPiece = gameBoardArray[0];
-    //             playerOne.playerMark = compPiece;
-    //             playerTwo.playerMark = gameBoardArray[1];
-    //             break;
-    //         case 1:
-    //             compPiece = gameBoardArray[1];
-    //             playerOne.playerMark = compPiece;
-    //             playerTwo.playerMark = gameBoardArray[0];
-    //             break;
-    //     }
-    //     return compPiece;
-    // }
-
-    // const _playerVsCom = () => {
-    //     playerTwo.playerName = getPlayerVsCompName.value;
-    //     board.style.display = 'grid';
-    //     displayPlayerPiece.textContent = `${playerOne.playerName} gamepiece is '${playerOne.playerMark}'
-    //         while ${playerTwo.playerName} gamepiece is '${playerTwo.playerMark}'`;
-    //     board.prepend(displayPlayerPiece);
-    //     _currentPlayer(compPiece);
-    //     displayController.addHandler();
-
-    // }
 
     // bindEvents
     document.addEventListener('DOMContentLoaded', _loadContents);
@@ -170,8 +134,6 @@ const gameBoard = (() => {
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
     newGameButton.addEventListener('click', _resetGame);
-    // computerButton.addEventListener('click', computerMove);
-    // formPlayerComSubmitButton.addEventListener('click', _playerVsCom);
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
     };
@@ -202,7 +164,6 @@ const gameBoard = (() => {
 
     return {
         displayMark,
-        // computerMove
     };
 })();
 
