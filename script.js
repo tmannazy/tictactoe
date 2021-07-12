@@ -26,7 +26,7 @@ const gameBoard = (() => {
         newGameButton = document.querySelector('.new-game'),
         getPlayerOneName = document.getElementById('player-one'),
         getPlayerTwoName = document.getElementById('player-two'),
-        userFocus = [getPlayerOneName, getPlayerTwoName, getPlayerVsCompName],
+        userFocus = [getPlayerOneName, getPlayerTwoName],
         keyEvents = [formOneSubmitButton, formTwoSubmitButton];
 
 
