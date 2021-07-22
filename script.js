@@ -310,8 +310,12 @@ const displayController = (() => {
                 item.textContent = compSelection;
                 getSquaresIndex();
             } else if (item.textContent !== '' && index === randomPos) {
-                getSquaresIndex();
-                showPlayerVsComp(playerOne.playerMark);
+                if (winnerDiv.textContent === '') {
+                    getSquaresIndex();
+                    showPlayerVsComp(playerOne.playerMark);
+                } else {
+                    return;
+                }
             } return;
         });
     }
