@@ -20,7 +20,7 @@ const gameBoard = (() => {
         formTwoSubmitButton = document.querySelector('#form-two-button'),
         formOne = document.querySelector('#form-one'),
         formTwo = document.querySelector('#form-two'),
-        playerComputerForm = document.querySelector('#player-com'),
+        formPlayerComSubmitButton = document.querySelector('#player-com'),
         startAndNewGameContainer = document.querySelector('.gamestart'),
         startButton = document.querySelector('.start-game'),
         newGameButton = document.querySelector('.new-game'),
@@ -70,7 +70,7 @@ const gameBoard = (() => {
         markContainer.style.display = 'none';
         formTwo.style.display = 'none';
         startButton.style.display = 'none';
-        playerComputerForm.style.display = 'none';
+        formPlayerComSubmitButton.style.display = 'none';
         playerVsComputerGameButton.style.display = 'block';
         startAndNewGameContainer.style.display = 'none';
     }
@@ -138,7 +138,7 @@ const gameBoard = (() => {
 
     const computerMove = () => {
         playerVsComputerGameButton.style.display = 'none';
-        playerComputerForm.style.display = 'block';
+        formPlayerComSubmitButton.style.display = 'block';
         playerOne.playerName = 'Computer';
         formOne.style.display = 'none';
         formTwo.style.display = 'none';
@@ -160,7 +160,7 @@ const gameBoard = (() => {
 
     const _playerVsCom = () => {
         playerTwo.playerName = getPlayerVsCompName.value;
-        playerComputerForm.style.display = 'none';
+        formPlayerComSubmitButton.style.display = 'none';
         formContainer.style.display = 'none';
         newGameButton.style.display = 'block';
         startAndNewGameContainer.setAttribute('style', 'display: flex; position: absolute; left: 50px');
