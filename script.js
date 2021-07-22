@@ -18,7 +18,6 @@ const gameBoard = (() => {
         formContainer = document.querySelector('.form-container'),
         formOneSubmitButton = document.querySelector('#form-one-button'),
         formTwoSubmitButton = document.querySelector('#form-two-button'),
-        formPlayerComSubmitButton = document.querySelector('#form-player-com'),
         formOne = document.querySelector('#form-one'),
         formTwo = document.querySelector('#form-two'),
         playerComputerForm = document.querySelector('#player-com'),
