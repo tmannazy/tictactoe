@@ -302,11 +302,14 @@ const displayController = (() => {
     }
 
     const showPlayerVsComp = compSelection => {
+        const randomPos = Math.floor(Math.random() * 9);
         squares.forEach((item, index) => {
-            const randomPos = Math.floor(Math.random() * 9);
-            if (index === randomPos && item.textContent === '') {
+            if (item.textContent === '' && index === randomPos) {
                 item.textContent = compSelection;
                 getSquaresIndex();
+            } else if (item.textContent !== '' && index === randomPos) {
+                getSquaresIndex();
+                showPlayerVsComp(playerOne.playerMark);
             } return;
         });
     }
