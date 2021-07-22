@@ -170,7 +170,6 @@ const gameBoard = (() => {
             while <span>${playerTwo.playerName}</span> gamepiece is <span>${playerTwo.playerMark}</span>`;
         board.prepend(displayPlayerPiece);
         displayController.showPlayerVsComp(compPiece);
-
     }
 
     // bindEvents
@@ -313,9 +312,8 @@ const displayController = (() => {
                 if (winnerDiv.textContent === '') {
                     getSquaresIndex();
                     showPlayerVsComp(playerOne.playerMark);
-                } else {
+                } else
                     return;
-                }
             } return;
         });
     }
