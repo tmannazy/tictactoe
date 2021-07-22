@@ -25,7 +25,7 @@ const gameBoard = (() => {
         startAndNewGameContainer = document.querySelector('.gamestart'),
         startButton = document.querySelector('.start-game'),
         newGameButton = document.querySelector('.new-game'),
-        computerButton = document.querySelector('.computer-game'),
+        playerVsComputerGameButton = document.querySelector('.computer-game'),
         getPlayerOneName = document.getElementById('player-one'),
         getPlayerTwoName = document.getElementById('player-two'),
         getPlayerVsCompName = document.getElementById('player-computer'),
@@ -72,13 +72,14 @@ const gameBoard = (() => {
         formTwo.style.display = 'none';
         startButton.style.display = 'none';
         playerComputerForm.style.display = 'none';
-        computerButton.style.display = 'block';
+        playerVsComputerGameButton.style.display = 'block';
         startAndNewGameContainer.style.display = 'none';
     }
 
     const _openFormTwo = event => {
         playerOne.playerName = getPlayerOneName.value;
         formOne.style.display = 'none';
+        playerVsComputerGameButton.style.display = 'none';
         formTwo.style.display = 'block';
     }
 
@@ -110,7 +111,7 @@ const gameBoard = (() => {
 
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
-            if (compPiece !== null) {
+            if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
                 displayController.getSquaresIndex();
                 displayController.showPlayerVsComp(compPiece);
@@ -137,6 +138,7 @@ const gameBoard = (() => {
     }
 
     const computerMove = () => {
+        playerVsComputerGameButton.style.display = 'none';
         playerComputerForm.style.display = 'block';
         playerOne.playerName = 'Computer';
         formOne.style.display = 'none';
@@ -161,11 +163,12 @@ const gameBoard = (() => {
         playerTwo.playerName = getPlayerVsCompName.value;
         playerComputerForm.style.display = 'none';
         formContainer.style.display = 'none';
+        newGameButton.style.display = 'block';
+        startAndNewGameContainer.setAttribute('style', 'display: flex; position: absolute; left: 50px');
         board.style.display = 'grid';
-        displayPlayerPiece.textContent = `${playerOne.playerName} gamepiece is '${playerOne.playerMark}'
-            while ${playerTwo.playerName} gamepiece is '${playerTwo.playerMark}'`;
+        displayPlayerPiece.innerHTML = `<span>${playerOne.playerName}</span> gamepiece is <span>${playerOne.playerMark}</span>
+            while <span>${playerTwo.playerName}</span> gamepiece is <span>${playerTwo.playerMark}</span>`;
         board.prepend(displayPlayerPiece);
-        // _currentPlayer(compPiece);
         displayController.showPlayerVsComp(compPiece);
 
     }
@@ -177,7 +180,7 @@ const gameBoard = (() => {
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
     newGameButton.addEventListener('click', _resetGame);
-    computerButton.addEventListener('click', computerMove);
+    playerVsComputerGameButton.addEventListener('click', computerMove);
     formPlayerComSubmitButton.addEventListener('click', _playerVsCom);
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
@@ -209,7 +212,6 @@ const gameBoard = (() => {
 
     return {
         displayMark,
-        // computerMove
     };
 })();
 
