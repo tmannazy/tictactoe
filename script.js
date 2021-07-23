@@ -18,9 +18,10 @@ const gameBoard = (() => {
         formContainer = document.querySelector('.form-container'),
         formOneSubmitButton = document.querySelector('#form-one-button'),
         formTwoSubmitButton = document.querySelector('#form-two-button'),
+        formPlayerComSubmitButton = document.querySelector('#form-player-com'),
         formOne = document.querySelector('#form-one'),
         formTwo = document.querySelector('#form-two'),
-        formPlayerComSubmitButton = document.querySelector('#player-com'),
+        playerComputerForm = document.querySelector('#player-com'),
         startAndNewGameContainer = document.querySelector('.gamestart'),
         startButton = document.querySelector('.start-game'),
         newGameButton = document.querySelector('.new-game'),
@@ -70,7 +71,7 @@ const gameBoard = (() => {
         markContainer.style.display = 'none';
         formTwo.style.display = 'none';
         startButton.style.display = 'none';
-        formPlayerComSubmitButton.style.display = 'none';
+        playerComputerForm.style.display = 'none';
         playerVsComputerGameButton.style.display = 'block';
         startAndNewGameContainer.style.display = 'none';
     }
@@ -138,7 +139,7 @@ const gameBoard = (() => {
 
     const computerMove = () => {
         playerVsComputerGameButton.style.display = 'none';
-        formPlayerComSubmitButton.style.display = 'block';
+        playerComputerForm.style.display = 'block';
         playerOne.playerName = 'Computer';
         formOne.style.display = 'none';
         formTwo.style.display = 'none';
@@ -160,7 +161,7 @@ const gameBoard = (() => {
 
     const _playerVsCom = () => {
         playerTwo.playerName = getPlayerVsCompName.value;
-        formPlayerComSubmitButton.style.display = 'none';
+        playerComputerForm.style.display = 'none';
         formContainer.style.display = 'none';
         newGameButton.style.display = 'block';
         startAndNewGameContainer.setAttribute('style', 'display: flex; position: absolute; left: 50px');
