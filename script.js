@@ -5,7 +5,7 @@ const Player = (playerName, playerMark) => {
 const playerOne = Player(), playerTwo = Player();
 
 const gameBoard = (() => {
-    const gameBoardArray = ['x', 'o'],
+    const gameBoardPiece = ['x', 'o'],
         getPlayerOne = playerOne,
         getPlayerTwo = playerTwo,
         displayPlayerPiece = document.createElement('div');
@@ -112,13 +112,13 @@ const gameBoard = (() => {
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined) {
-                e.target.textContent = playerTwo.playerMark;
-                displayController.getSquaresIndex();
+                e.target.textContent = compPiece;
+                displayController.getSquaresIndex(compPiece);
                 displayController.showPlayerVsComp(compPiece);
                 return;
             } else {
                 const getPlayerValue = _currentPlayer();
-                const placeValues = gameBoardArray.forEach(item => {
+                const placeValues = gameBoardPiece.forEach(item => {
                     if (item === getPlayerValue) {
                         switch (getPlayerValue) {
                             case 'x':
@@ -130,7 +130,7 @@ const gameBoard = (() => {
                                 _currentPlayer('x');
                                 break;
                         }
-                        displayController.getSquaresIndex();
+                        displayController.getSquaresIndex(getPlayerValue);
                     }
                 });
             }
@@ -146,14 +146,14 @@ const gameBoard = (() => {
         const randomPick = Math.floor(Math.random() * 2);
         switch (randomPick) {
             case 0:
-                compPiece = gameBoardArray[0];
+                compPiece = gameBoardPiece[0];
                 playerOne.playerMark = compPiece;
-                playerTwo.playerMark = gameBoardArray[1];
+                playerTwo.playerMark = gameBoardPiece[1];
                 break;
             case 1:
-                compPiece = gameBoardArray[1];
+                compPiece = gameBoardPiece[1];
                 playerOne.playerMark = compPiece;
-                playerTwo.playerMark = gameBoardArray[0];
+                playerTwo.playerMark = gameBoardPiece[0];
                 break;
         }
         return compPiece;
@@ -222,65 +222,88 @@ const displayController = (() => {
 
     // cacheDOM
     const getBoardContainer = document.querySelector('.game-board'),
-        squares = getBoardContainer.querySelectorAll('.box');
+        squares = getBoardContainer.querySelectorAll('.box'),
+        boardIndexArr = Array.from(squares);
 
 
-    const getSquaresIndex = () => {
-        if (_stalemateGame()) {
-            return true;
-        }
-        return _gameWinner(0, 1, 2) ||
-            _gameWinner(3, 4, 5) ||
-            _gameWinner(6, 7, 8) ||
-            _gameWinner(0, 3, 6) ||
-            _gameWinner(1, 4, 7) ||
-            _gameWinner(2, 5, 8) ||
-            _gameWinner(0, 4, 8) ||
-            _gameWinner(2, 4, 6)
-    }
-
-    const _gameWinner = (p1, p2, p3) => {
-        squares.forEach((item, index) => {
-            switch (index) {
-                case p1:
-                    pos1 = item.textContent;
-                    break;
-                case p2:
-                    pos2 = item.textContent;
-                    break;
-                case p3:
-                    pos3 = item.textContent;
-                    break;
-            }
-        });
-        if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
-            if (pos1 === pos2 && pos1 === pos3) {
-                switch (pos1) {
-                    case playerOne.playerMark:
-                        squares.forEach((item, index) => {
-                            if (index === p1 || index === p2 || index === p3) {
-                                item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
-                            }
-                        });
-                        winnerDiv.classList.add('winner-div');
-                        winnerDiv.textContent = `${playerOne.playerName} is the winner`;
-                        break;
-                    case playerTwo.playerMark:
-                        squares.forEach((item, index) => {
-                            if (index === p1 || index === p2 || index === p3) {
-                                item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732');
-                            }
-                        });
-                        winnerDiv.classList.add('winner-div');
-                        winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
-                        break;
+    const getSquaresIndex = player => {
+        // if (_stalemateGame()) {
+        //     return true;
+        // }
+        // boardIndexArr.forEach((item, index, arr) => {
+        for (let i = 0; i < boardIndexArr.length; i++) {
+            if (
+                (boardIndexArr[0].textContent === player && boardIndexArr[1].textContent === player && boardIndexArr[2].textContent === player) ||
+                (boardIndexArr[3].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[5].textContent === player) ||
+                (boardIndexArr[6].textContent === player && boardIndexArr[7].textContent === player && boardIndexArr[8].textContent === player) ||
+                (boardIndexArr[0].textContent === player && boardIndexArr[3].textContent === player && boardIndexArr[6].textContent === player) ||
+                (boardIndexArr[1].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[7].textContent === player) ||
+                (boardIndexArr[2].textContent === player && boardIndexArr[5].textContent === player && boardIndexArr[8].textContent === player) ||
+                (boardIndexArr[0].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[8].textContent === player) ||
+                (boardIndexArr[2].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[6].textContent === player)) {
+                if (player === playerOne.playerMark) {
+                    winnerDiv.textContent = `${playerOne.playerName} is the winner`;
+                    boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
+                } else {
+                    winnerDiv.textContent = `${playerTwo.playerName} is the winner`
+                    boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
                 }
-                pos1 = pos2 = pos3 = '';
+                winnerDiv.classList.add('winner-div');
                 getBoardContainer.appendChild(winnerDiv);
                 _removeHandler();
+                return true;
             }
-        }
+            else {
+                return false;
+            }
+        };
+
     }
+
+    // const _gameWinnr = playerPiece => {
+
+
+    //     squares.forEach((item, index) => {
+    //         switch (index) {
+    //             case p1:
+    //                 pos1 = item.textContent;
+    //                 break;
+    //             case p2:
+    //                 pos2 = item.textContent;
+    //                 break;
+    //             case p3:
+    //                 pos3 = item.textContent;
+    //                 break;
+    //         }
+    //     });
+    //     if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
+    //         if (pos1 === pos2 && pos1 === pos3) {
+    //             switch (pos1) {
+    //                 case playerOne.playerMark:
+    //                     squares.forEach((item, index) => {
+    //                         if (index === p1 || index === p2 || index === p3) {
+    //                             item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
+    //                         }
+    //                     });
+    //                     winnerDiv.classList.add('winner-div');
+    //                     winnerDiv.textContent = `${playerOne.playerName} is the winner`;
+    //                     break;
+    //                 case playerTwo.playerMark:
+    //                     squares.forEach((item, index) => {
+    //                         if (index === p1 || index === p2 || index === p3) {
+    //                             item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732');
+    //                         }
+    //                     });
+    //                     winnerDiv.classList.add('winner-div');
+    //                     winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
+    //                     break;
+    //             }
+    //             pos1 = pos2 = pos3 = '';
+    //             getBoardContainer.appendChild(winnerDiv);
+    //             _removeHandler();
+    //         }
+    //     }
+    // }
 
     const _stalemateGame = () => {
         for (let i = 0; i < 9; i++) {
