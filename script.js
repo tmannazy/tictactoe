@@ -235,7 +235,7 @@ const displayController = (() => {
         [0, 3, 6],
         [1, 4, 7],
         [2, 5, 8]
-    ]
+    ];
 
     const getSquaresIndex = player => {
         // if (_stalemateGame()) {
@@ -270,21 +270,23 @@ const displayController = (() => {
         // };
         let plays = boardIndexArr.reduce((acc, cur, iter) =>
             (cur.textContent === player) ? acc.concat(iter) : acc, []);
-        let gameWinner = null;
-        for (let [index, val] of winCombos.entries()) {
-            if (val.every(item => plays.indexOf(item) > -1)) {
-                gameWinner = {
-                    index: index,
-                    player: player
-                };
-                break;
+        for (let [index, value] of winCombos.entries()) {
+            let checkArr = value.every(item => plays.includes(item));
+            if (checkArr) {
+                value.map(item => boardIndexArr[item].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732'));
+                if (player === playerOne.playerMark) {
+                    winnerDiv.textContent = `${playerOne.playerName} is the winner`;
+                    _removeHandler();
+                }
+                else {
+                    winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
+                    _removeHandler();
+                }
             }
         }
-        // return gameWinner;
-        winnerDiv.textContent = `${gameWinner} is the winner`;
-        // })
-
-    }
+        winnerDiv.classList.add('winner-div');
+        getBoardContainer.appendChild(winnerDiv);
+    };
 
     // const _gameWinnr = playerPiece => {
 
