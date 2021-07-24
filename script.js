@@ -113,7 +113,7 @@ const gameBoard = (() => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined) {
                 e.target.textContent = compPiece;
-                displayController.getSquaresIndex(compPiece);
+                // displayController.getSquaresIndex(compPiece);
                 displayController.showPlayerVsComp(compPiece);
                 return;
             } else {
@@ -226,37 +226,63 @@ const displayController = (() => {
         boardIndexArr = Array.from(squares);
 
 
+    const winCombos = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8]
+    ]
+
     const getSquaresIndex = player => {
         // if (_stalemateGame()) {
         //     return true;
         // }
         // boardIndexArr.forEach((item, index, arr) => {
-        for (let i = 0; i < boardIndexArr.length; i++) {
-            if (
-                (boardIndexArr[0].textContent === player && boardIndexArr[1].textContent === player && boardIndexArr[2].textContent === player) ||
-                (boardIndexArr[3].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[5].textContent === player) ||
-                (boardIndexArr[6].textContent === player && boardIndexArr[7].textContent === player && boardIndexArr[8].textContent === player) ||
-                (boardIndexArr[0].textContent === player && boardIndexArr[3].textContent === player && boardIndexArr[6].textContent === player) ||
-                (boardIndexArr[1].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[7].textContent === player) ||
-                (boardIndexArr[2].textContent === player && boardIndexArr[5].textContent === player && boardIndexArr[8].textContent === player) ||
-                (boardIndexArr[0].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[8].textContent === player) ||
-                (boardIndexArr[2].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[6].textContent === player)) {
-                if (player === playerOne.playerMark) {
-                    winnerDiv.textContent = `${playerOne.playerName} is the winner`;
-                    boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
-                } else {
-                    winnerDiv.textContent = `${playerTwo.playerName} is the winner`
-                    boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
-                }
-                winnerDiv.classList.add('winner-div');
-                getBoardContainer.appendChild(winnerDiv);
-                _removeHandler();
-                return true;
+        // for (let i = 0; i < boardIndexArr.length; i++) {
+        //     if (
+        //         (boardIndexArr[0].textContent === player && boardIndexArr[1].textContent === player && boardIndexArr[2].textContent === player) ||
+        //         (boardIndexArr[3].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[5].textContent === player) ||
+        //         (boardIndexArr[6].textContent === player && boardIndexArr[7].textContent === player && boardIndexArr[8].textContent === player) ||
+        //         (boardIndexArr[0].textContent === player && boardIndexArr[3].textContent === player && boardIndexArr[6].textContent === player) ||
+        //         (boardIndexArr[1].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[7].textContent === player) ||
+        //         (boardIndexArr[2].textContent === player && boardIndexArr[5].textContent === player && boardIndexArr[8].textContent === player) ||
+        //         (boardIndexArr[0].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[8].textContent === player) ||
+        //         (boardIndexArr[2].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[6].textContent === player)) {
+        //         if (player === playerOne.playerMark) {
+        //             winnerDiv.textContent = `${playerOne.playerName} is the winner`;
+        //             boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
+        //         } else {
+        //             winnerDiv.textContent = `${playerTwo.playerName} is the winner`
+        //             boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
+        //         }
+        //         winnerDiv.classList.add('winner-div');
+        //         getBoardContainer.appendChild(winnerDiv);
+        //         _removeHandler();
+        //         return true;
+        //     }
+        //     else {
+        //         return false;
+        //     }
+        // };
+        let plays = boardIndexArr.reduce((acc, cur, iter) =>
+            (cur.textContent === player) ? acc.concat(iter) : acc, []);
+        let gameWinner = null;
+        for (let [index, val] of winCombos.entries()) {
+            if (val.every(item => plays.indexOf(item) > -1)) {
+                gameWinner = {
+                    index: index,
+                    player: player
+                };
+                break;
             }
-            else {
-                return false;
-            }
-        };
+        }
+        // return gameWinner;
+        winnerDiv.textContent = `${gameWinner} is the winner`;
+        // })
 
     }
 
