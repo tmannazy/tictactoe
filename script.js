@@ -112,7 +112,7 @@ const gameBoard = (() => {
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined) {
-                e.target.textContent = compPiece;
+                e.target.textContent = playerTwo.playerMark;
                 // displayController.getSquaresIndex(compPiece);
                 displayController.showPlayerVsComp(compPiece);
                 return;
@@ -216,7 +216,6 @@ const gameBoard = (() => {
 
 
 const displayController = (() => {
-    let pos1, pos2, pos3;
     const winnerDiv = document.createElement('div');
     winnerDiv.className = 'winner-div';
 
@@ -253,7 +252,7 @@ const displayController = (() => {
                     _removeHandler();
                 }
             } else {
-                _stalemateGame();
+                _stalemateGame()
             }
         }
         winnerDiv.classList.add('winner-div');
@@ -285,10 +284,10 @@ const displayController = (() => {
         squares.forEach((item, index) => {
             if (item.textContent === '' && index === randomPos) {
                 item.textContent = compSelection;
-                getSquaresIndex();
+                getSquaresIndex(compSelection);
             } else if (item.textContent !== '' && index === randomPos) {
                 if (winnerDiv.textContent === '') {
-                    getSquaresIndex();
+                    getSquaresIndex(compSelection);
                     showPlayerVsComp(playerOne.playerMark);
                 } else
                     return;
