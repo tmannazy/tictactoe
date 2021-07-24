@@ -238,36 +238,6 @@ const displayController = (() => {
     ];
 
     const getSquaresIndex = player => {
-        // if (_stalemateGame()) {
-        //     return true;
-        // }
-        // boardIndexArr.forEach((item, index, arr) => {
-        // for (let i = 0; i < boardIndexArr.length; i++) {
-        //     if (
-        //         (boardIndexArr[0].textContent === player && boardIndexArr[1].textContent === player && boardIndexArr[2].textContent === player) ||
-        //         (boardIndexArr[3].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[5].textContent === player) ||
-        //         (boardIndexArr[6].textContent === player && boardIndexArr[7].textContent === player && boardIndexArr[8].textContent === player) ||
-        //         (boardIndexArr[0].textContent === player && boardIndexArr[3].textContent === player && boardIndexArr[6].textContent === player) ||
-        //         (boardIndexArr[1].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[7].textContent === player) ||
-        //         (boardIndexArr[2].textContent === player && boardIndexArr[5].textContent === player && boardIndexArr[8].textContent === player) ||
-        //         (boardIndexArr[0].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[8].textContent === player) ||
-        //         (boardIndexArr[2].textContent === player && boardIndexArr[4].textContent === player && boardIndexArr[6].textContent === player)) {
-        //         if (player === playerOne.playerMark) {
-        //             winnerDiv.textContent = `${playerOne.playerName} is the winner`;
-        //             boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
-        //         } else {
-        //             winnerDiv.textContent = `${playerTwo.playerName} is the winner`
-        //             boardIndexArr[i].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
-        //         }
-        //         winnerDiv.classList.add('winner-div');
-        //         getBoardContainer.appendChild(winnerDiv);
-        //         _removeHandler();
-        //         return true;
-        //     }
-        //     else {
-        //         return false;
-        //     }
-        // };
         let plays = boardIndexArr.reduce((acc, cur, iter) =>
             (cur.textContent === player) ? acc.concat(iter) : acc, []);
         for (let [index, value] of winCombos.entries()) {
@@ -282,56 +252,13 @@ const displayController = (() => {
                     winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
                     _removeHandler();
                 }
+            } else {
+                _stalemateGame();
             }
         }
         winnerDiv.classList.add('winner-div');
         getBoardContainer.appendChild(winnerDiv);
     };
-
-    // const _gameWinnr = playerPiece => {
-
-
-    //     squares.forEach((item, index) => {
-    //         switch (index) {
-    //             case p1:
-    //                 pos1 = item.textContent;
-    //                 break;
-    //             case p2:
-    //                 pos2 = item.textContent;
-    //                 break;
-    //             case p3:
-    //                 pos3 = item.textContent;
-    //                 break;
-    //         }
-    //     });
-    //     if (pos1 !== '' && pos2 !== '' && pos3 !== '') {
-    //         if (pos1 === pos2 && pos1 === pos3) {
-    //             switch (pos1) {
-    //                 case playerOne.playerMark:
-    //                     squares.forEach((item, index) => {
-    //                         if (index === p1 || index === p2 || index === p3) {
-    //                             item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732')
-    //                         }
-    //                     });
-    //                     winnerDiv.classList.add('winner-div');
-    //                     winnerDiv.textContent = `${playerOne.playerName} is the winner`;
-    //                     break;
-    //                 case playerTwo.playerMark:
-    //                     squares.forEach((item, index) => {
-    //                         if (index === p1 || index === p2 || index === p3) {
-    //                             item.setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732');
-    //                         }
-    //                     });
-    //                     winnerDiv.classList.add('winner-div');
-    //                     winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
-    //                     break;
-    //             }
-    //             pos1 = pos2 = pos3 = '';
-    //             getBoardContainer.appendChild(winnerDiv);
-    //             _removeHandler();
-    //         }
-    //     }
-    // }
 
     const _stalemateGame = () => {
         for (let i = 0; i < 9; i++) {
