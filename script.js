@@ -113,7 +113,7 @@ const gameBoard = (() => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
-                // displayController.getSquaresIndex(compPiece);
+                displayController.getSquaresIndex(playerTwo.playerMark);
                 displayController.showPlayerVsComp(compPiece);
                 return;
             } else {
