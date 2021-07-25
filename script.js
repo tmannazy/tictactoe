@@ -84,6 +84,8 @@ const gameBoard = (() => {
         playerOne.playerName = getPlayerOneName.value;
         formOne.style.display = 'none';
         playerVsComputerButton.style.display = 'none';
+        easyPlayerVsComputerButton.style.display = 'none';
+        hardPlayerVsComputerButton.style.display = 'none';
         formTwo.style.display = 'block';
     }
 
@@ -148,7 +150,8 @@ const gameBoard = (() => {
     }
 
     const _computerMove = () => {
-        playerVsComputerButton.style.display = 'none';
+        easyPlayerVsComputerButton.style.display = 'none';
+        hardPlayerVsComputerButton.style.display = 'none';
         playerComputerForm.style.display = 'block';
         playerOne.playerName = 'Computer';
         formOne.style.display = 'none';
