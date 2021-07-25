@@ -25,7 +25,9 @@ const gameBoard = (() => {
         startAndNewGameContainer = document.querySelector('.gamestart'),
         startButton = document.querySelector('.start-game'),
         newGameButton = document.querySelector('.new-game'),
-        playerVsComputerGameButton = document.querySelector('.computer-game'),
+        playerVsComputerButton = document.querySelector('.computer-game'),
+        easyPlayerVsComputerButton = document.querySelector('.easy'),
+        hardPlayerVsComputerButton = document.querySelector('.hard'),
         getPlayerOneName = document.getElementById('player-one'),
         getPlayerTwoName = document.getElementById('player-two'),
         getPlayerVsCompName = document.getElementById('player-computer'),
@@ -72,14 +74,14 @@ const gameBoard = (() => {
         formTwo.style.display = 'none';
         startButton.style.display = 'none';
         playerComputerForm.style.display = 'none';
-        playerVsComputerGameButton.style.display = 'block';
+        playerVsComputerButton.style.display = 'block';
         startAndNewGameContainer.style.display = 'none';
     }
 
     const _openFormTwo = event => {
         playerOne.playerName = getPlayerOneName.value;
         formOne.style.display = 'none';
-        playerVsComputerGameButton.style.display = 'none';
+        playerVsComputerButton.style.display = 'none';
         formTwo.style.display = 'block';
     }
 
@@ -138,7 +140,7 @@ const gameBoard = (() => {
     }
 
     const _computerMove = () => {
-        playerVsComputerGameButton.style.display = 'none';
+        playerVsComputerButton.style.display = 'none';
         playerComputerForm.style.display = 'block';
         playerOne.playerName = 'Computer';
         formOne.style.display = 'none';
@@ -179,7 +181,7 @@ const gameBoard = (() => {
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
     newGameButton.addEventListener('click', _resetGame);
-    playerVsComputerGameButton.addEventListener('click', _computerMove);
+    playerVsComputerButton.addEventListener('click', _computerMove);
     formPlayerComSubmitButton.addEventListener('click', _playerVsCom);
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
@@ -251,6 +253,7 @@ const displayController = (() => {
                     winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
                     _removeHandler();
                 }
+                return;
             } else {
                 _stalemateGame()
             }
