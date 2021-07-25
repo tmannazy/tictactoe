@@ -137,7 +137,7 @@ const gameBoard = (() => {
         }
     }
 
-    const computerMove = () => {
+    const _computerMove = () => {
         playerVsComputerGameButton.style.display = 'none';
         playerComputerForm.style.display = 'block';
         playerOne.playerName = 'Computer';
@@ -179,7 +179,7 @@ const gameBoard = (() => {
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
     newGameButton.addEventListener('click', _resetGame);
-    playerVsComputerGameButton.addEventListener('click', computerMove);
+    playerVsComputerGameButton.addEventListener('click', _computerMove);
     formPlayerComSubmitButton.addEventListener('click', _playerVsCom);
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
