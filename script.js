@@ -76,6 +76,8 @@ const gameBoard = (() => {
         playerComputerForm.style.display = 'none';
         playerVsComputerButton.style.display = 'block';
         startAndNewGameContainer.style.display = 'none';
+        easyPlayerVsComputerButton.style.display = 'none';
+        hardPlayerVsComputerButton.style.display = 'none';
     }
 
     const _openFormTwo = event => {
@@ -139,6 +141,12 @@ const gameBoard = (() => {
         }
     }
 
+    const _displayPlayerLevelsVsComputer = () => {
+        playerVsComputerButton.style.display = 'none';
+        easyPlayerVsComputerButton.style.display = 'inline';
+        hardPlayerVsComputerButton.style.display = 'inline';
+    }
+
     const _computerMove = () => {
         playerVsComputerButton.style.display = 'none';
         playerComputerForm.style.display = 'block';
@@ -181,8 +189,9 @@ const gameBoard = (() => {
     formTwoSubmitButton.addEventListener('click', _showStartButton);
     startButton.addEventListener('click', _choosePiece);
     newGameButton.addEventListener('click', _resetGame);
-    playerVsComputerButton.addEventListener('click', _computerMove);
+    playerVsComputerButton.addEventListener('click', _displayPlayerLevelsVsComputer);
     formPlayerComSubmitButton.addEventListener('click', _playerVsCom);
+    easyPlayerVsComputerButton.addEventListener('click', _computerMove);
     const _playersLetter = () => {
         markContainer.addEventListener('click', _getLetterChoice);
     };
