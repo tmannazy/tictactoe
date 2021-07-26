@@ -119,7 +119,7 @@ const gameBoard = (() => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
-                displayController.getSquaresIndex(playerTwo.playerMark);
+                displayController.gameWinner(playerTwo.playerMark);
                 easyLevelGame.showPlayerVsComp(compPiece);
                 return;
             } else {
@@ -136,7 +136,7 @@ const gameBoard = (() => {
                                 _currentPlayer('x');
                                 break;
                         }
-                        displayController.getSquaresIndex(getPlayerValue);
+                        displayController.gameWinner(getPlayerValue);
                     }
                 });
             }
@@ -251,7 +251,7 @@ const displayController = (() => {
         [2, 5, 8]
     ];
 
-    const getSquaresIndex = player => {
+    const gameWinner = player => {
         let plays = boardIndexArr.reduce((acc, cur, iter) =>
             (cur.textContent === player) ? acc.concat(iter) : acc, []);
         for (let [index, value] of winCombos.entries()) {
@@ -300,10 +300,10 @@ const displayController = (() => {
         squares.forEach((item, index) => {
             if (item.textContent === '' && index === randomPos) {
                 item.textContent = compSelection;
-                getSquaresIndex(compSelection);
+                gameWinner(compSelection);
             } else if (item.textContent !== '' && index === randomPos) {
                 if (winnerDiv.textContent === '') {
-                    getSquaresIndex(compSelection);
+                    gameWinner(compSelection);
                     easyLevelGame(playerOne.playerMark);
                 } else
                     return;
@@ -312,10 +312,28 @@ const displayController = (() => {
     }
 
     const hardLevelGame = () => {
-
-        let availSpots = emptyIndexies();
+        const randomPos = Math.floor(Math.random() * 9);
+        squares.forEach((item, index) => {
+            if (item.textContent === '' && index === randomPos) {
+                item.textContent = compSelection;
+                minimax(compSelection);
+            }
+            // else if (item.textContent !== '' && index === randomPos) {
+            //     if (winnerDiv.textContent === '') {
+            //         gameWinner(compSelection);
+            //         easyLevelGame(playerOne.playerMark);
+            //     } else
+            //         return;
+            // } return;
+        });
     }
 
+    const emptyIndexies = () => boardIndexArr.filter(item => item.textContent !== 'x' && item.textContent !== 'o');
+
+    const minimax = player => {
+        let availSpots = emptyIndexies();
+        if (gameWinner)
+    }
 
 
     // bindEvents
@@ -332,7 +350,7 @@ const displayController = (() => {
 
 
     return {
-        getSquaresIndex,
+        gameWinner,
         clearBoard,
         addHandler,
         easyLevelGame,
