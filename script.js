@@ -149,7 +149,7 @@ const gameBoard = (() => {
         hardPlayerVsComputerButton.style.display = 'inline';
     }
 
-    const _computerMove = () => {
+    const _computerPieceChoice = () => {
         easyPlayerVsComputerButton.style.display = 'none';
         hardPlayerVsComputerButton.style.display = 'none';
         playerComputerForm.style.display = 'block';
@@ -182,8 +182,14 @@ const gameBoard = (() => {
         displayPlayerPiece.innerHTML = `<span>${playerOne.playerName}</span> gamepiece is <span>${playerOne.playerMark}</span>
             while <span>${playerTwo.playerName}</span> gamepiece is <span>${playerTwo.playerMark}</span>`;
         board.prepend(displayPlayerPiece);
-        displayController.showPlayerVsComp(compPiece);
+        if (_easyLevel.called)
+            displayController.easyLevelGame(compPiece);
+        else
+            displayController.hardLevelGame(compPiece);
     }
+
+    const _easyLevel = () => _easyLevel.called = true;
+
 
     // bindEvents
     document.addEventListener('DOMContentLoaded', _loadContents);
@@ -194,15 +200,10 @@ const gameBoard = (() => {
     newGameButton.addEventListener('click', _resetGame);
     playerVsComputerButton.addEventListener('click', _displayPlayerLevelsVsComputer);
     formPlayerComSubmitButton.addEventListener('click', _playerVsCom);
-    easyPlayerVsComputerButton.addEventListener('click', _computerMove);
-    const _playersLetter = () => {
-        markContainer.addEventListener('click', _getLetterChoice);
-    };
-    focusNameInput.forEach(item => {
-        item.addEventListener('focus', () => {
-            item.value = '';
-        });
-    });
+    easyPlayerVsComputerButton.addEventListener('click', () => { _computerPieceChoice(); _easyLevel(); });
+    hardPlayerVsComputerButton.addEventListener('click', () => _computerPieceChoice());
+    const _playersLetter = () => markContainer.addEventListener('click', _getLetterChoice);
+    focusNameInput.forEach(item => item.addEventListener('focus', () => item.value = ''));
 
 
     function handleKeyDown(event) {
