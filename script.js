@@ -120,7 +120,7 @@ const gameBoard = (() => {
             if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
                 displayController.getSquaresIndex(playerTwo.playerMark);
-                displayController.showPlayerVsComp(compPiece);
+                easyLevelGame.showPlayerVsComp(compPiece);
                 return;
             } else {
                 const getPlayerValue = _currentPlayer();
@@ -295,7 +295,7 @@ const displayController = (() => {
         winnerDiv.classList.remove('winner-div');
     }
 
-    const showPlayerVsComp = compSelection => {
+    const easyLevelGame = compSelection => {
         const randomPos = Math.floor(Math.random() * 9);
         squares.forEach((item, index) => {
             if (item.textContent === '' && index === randomPos) {
@@ -304,12 +304,19 @@ const displayController = (() => {
             } else if (item.textContent !== '' && index === randomPos) {
                 if (winnerDiv.textContent === '') {
                     getSquaresIndex(compSelection);
-                    showPlayerVsComp(playerOne.playerMark);
+                    easyLevelGame(playerOne.playerMark);
                 } else
                     return;
             } return;
         });
     }
+
+    const hardLevelGame = () => {
+
+        let availSpots = emptyIndexies();
+    }
+
+
 
     // bindEvents
     const addHandler = () => {
@@ -328,6 +335,7 @@ const displayController = (() => {
         getSquaresIndex,
         clearBoard,
         addHandler,
-        showPlayerVsComp
+        easyLevelGame,
+        hardLevelGame
     };
 })();
