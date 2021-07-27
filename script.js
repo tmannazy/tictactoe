@@ -122,7 +122,12 @@ const gameBoard = (() => {
                 displayController.gameWinner(playerTwo.playerMark);
                 displayController.easyLevelGame(compPiece);
                 return;
-            } else {
+            }
+            else if (compPiece !== undefined && !_easyLevel.called) {
+                e.target.textContent = playerTwo.playerMark;
+                displayController.hardLevelGame(playerTwo.playerMark);
+            }
+            else {
                 const getPlayerValue = _currentPlayer();
                 const placeValues = gameBoardPiece.forEach(item => {
                     if (item === getPlayerValue) {
@@ -321,7 +326,7 @@ const displayController = (() => {
         squares.forEach((item, index) => {
             if (item.textContent === '' && index === randomPos) {
                 item.textContent = compSelection;
-                minimax(boardIndexArr, compSelection);
+                minimax(compSelection);
             }
             // else if (item.textContent !== '' && index === randomPos) {
             //     if (winnerDiv.textContent === '') {
