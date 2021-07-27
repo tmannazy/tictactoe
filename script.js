@@ -120,7 +120,7 @@ const gameBoard = (() => {
             if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
                 displayController.gameWinner(playerTwo.playerMark);
-                easyLevelGame.showPlayerVsComp(compPiece);
+                displayController.easyLevelGame(compPiece);
                 return;
             } else {
                 const getPlayerValue = _currentPlayer();
@@ -252,21 +252,26 @@ const displayController = (() => {
     ];
 
     const gameWinner = player => {
-        let plays = boardIndexArr.reduce((acc, cur, iter) =>
+        let storeWinner = null;
+
+        const plays = boardIndexArr.reduce((acc, cur, iter) =>
             (cur.textContent === player) ? acc.concat(iter) : acc, []);
+
         for (let [index, value] of winCombos.entries()) {
             let checkArr = value.every(item => plays.includes(item));
             if (checkArr) {
                 value.map(item => boardIndexArr[item].setAttribute('style', 'color: #B2D732; background-color: #34091C; border:5px outset #B2D732'));
                 if (player === playerOne.playerMark) {
                     winnerDiv.textContent = `${playerOne.playerName} is the winner`;
+                    storeWinner = player;
                     _removeHandler();
                 }
                 else {
                     winnerDiv.textContent = `${playerTwo.playerName} is the winner`;
+                    storeWinner = player;
                     _removeHandler();
                 }
-                return;
+                return storeWinner;
             } else {
                 _stalemateGame()
             }
@@ -311,12 +316,12 @@ const displayController = (() => {
         });
     }
 
-    const hardLevelGame = () => {
+    const hardLevelGame = compSelection => {
         const randomPos = Math.floor(Math.random() * 9);
         squares.forEach((item, index) => {
             if (item.textContent === '' && index === randomPos) {
                 item.textContent = compSelection;
-                minimax(compSelection);
+                minimax(boardIndexArr, compSelection);
             }
             // else if (item.textContent !== '' && index === randomPos) {
             //     if (winnerDiv.textContent === '') {
@@ -332,7 +337,50 @@ const displayController = (() => {
 
     const minimax = player => {
         let availSpots = emptyIndexies();
-        if (gameWinner)
+        if (gameWinner(player) === playerOne.playerMark)
+            return { score: 10 };
+        else if (gameWinner(player) === playerTwo.playerMark)
+            return { score: -10 };
+        else if (!availSpots.length)
+            return { score: 0 };
+
+
+        const moves = [];
+
+        for (let i = 0; i < availSpots.length; i++) {
+            const move = {};
+            move.index = availSpots.indexOf(availSpots[i]);
+            boardIndexArr[i].textContent = player;
+            if (player = playerOne.playerMark) {
+                let result = minimax(playerTwo.playerMark);
+                move.score = result.score;
+            } else {
+                let result = minimax(playerOne.playerMark);
+                move.score = result.score;
+            }
+            boardIndexArr[i] = move.index;
+            moves.push(move);
+        }
+
+        let bestMove;
+        if (player === playerOne.playerMark) {
+            let bestScore = -10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score > bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            let bestScore = 10000;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score < bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+        return moves[bestMove];
     }
 
 
