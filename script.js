@@ -257,7 +257,7 @@ const displayController = (() => {
     ];
 
     const gameWinner = player => {
-        let storeWinner = null;
+        let storeWinner = player;
 
         const plays = boardIndexArr.reduce((acc, cur, iter) =>
             (cur.textContent === player) ? acc.concat(iter) : acc, []);
@@ -276,13 +276,13 @@ const displayController = (() => {
                     storeWinner = player;
                     _removeHandler();
                 }
-                return storeWinner;
             } else {
                 _stalemateGame()
             }
         }
         winnerDiv.classList.add('winner-div');
         getBoardContainer.appendChild(winnerDiv);
+        return storeWinner;
     };
 
     const _stalemateGame = () => {
