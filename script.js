@@ -117,15 +117,16 @@ const gameBoard = (() => {
 
     const displayMark = e => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
-            if (compPiece !== undefined) {
+            if (compPiece !== undefined && !_easyLevel.called) {
+                e.target.textContent = playerTwo.playerMark;
+                displayController.hardLevelGame(playerTwo.playerMark);
+                return
+            }
+            else if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
                 displayController.gameWinner(playerTwo.playerMark);
                 displayController.easyLevelGame(compPiece);
                 return;
-            }
-            else if (compPiece !== undefined && !_easyLevel.called) {
-                e.target.textContent = playerTwo.playerMark;
-                displayController.hardLevelGame(playerTwo.playerMark);
             }
             else {
                 const getPlayerValue = _currentPlayer();
