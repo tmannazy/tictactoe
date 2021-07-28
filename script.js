@@ -119,8 +119,8 @@ const gameBoard = (() => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined && !_easyLevel.called) {
                 e.target.textContent = playerTwo.playerMark;
-                displayController.hardLevelGame(playerTwo.playerMark);
-                return
+                displayController.minimax(playerOne.playerMark);
+                return;
             }
             else if (compPiece !== undefined) {
                 e.target.textContent = playerTwo.playerMark;
@@ -323,19 +323,10 @@ const displayController = (() => {
     }
 
     const hardLevelGame = compSelection => {
-        const randomPos = Math.floor(Math.random() * 9);
         squares.forEach((item, index) => {
-            if (item.textContent === '' && index === randomPos) {
-                item.textContent = compSelection;
-                minimax(compSelection);
+            if (minimax(compSelection).index === index) {
+                item.textContent = minimax(compSelection).player;
             }
-            // else if (item.textContent !== '' && index === randomPos) {
-            //     if (winnerDiv.textContent === '') {
-            //         gameWinner(compSelection);
-            //         easyLevelGame(playerOne.playerMark);
-            //     } else
-            //         return;
-            // } return;
         });
     }
 
