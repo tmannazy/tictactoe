@@ -119,7 +119,7 @@ const gameBoard = (() => {
         if (e.target.closest('div.box') && e.target.textContent === '') {
             if (compPiece !== undefined && !_easyLevel.called) {
                 e.target.textContent = playerTwo.playerMark;
-                displayController.minimax(playerOne.playerMark);
+                displayController.hardLevelGame(playerOne.playerMark);
                 return;
             }
             else if (compPiece !== undefined) {
@@ -325,8 +325,8 @@ const displayController = (() => {
     const hardLevelGame = compSelection => {
         squares.forEach((item, index) => {
             if (minimax(compSelection).index === index) {
-                item.textContent = minimax(compSelection).player;
-            }
+                item.textContent = compSelection;
+            } return;
         });
     }
 
@@ -334,12 +334,15 @@ const displayController = (() => {
 
     const minimax = player => {
         let availSpots = emptyIndexies();
-        if (gameWinner(player) === playerOne.playerMark)
+        if (gameWinner(player) === playerOne.playerMark) {
             return { score: 10 };
-        else if (gameWinner(player) === playerTwo.playerMark)
+        }
+        else if (gameWinner(player) === playerTwo.playerMark) {
             return { score: -10 };
-        else if (!availSpots.length)
+        }
+        else if (!availSpots.length) {
             return { score: 0 };
+        }
 
 
         const moves = [];
@@ -347,15 +350,16 @@ const displayController = (() => {
         for (let i = 0; i < availSpots.length; i++) {
             const move = {};
             move.index = availSpots.indexOf(availSpots[i]);
-            boardIndexArr[i].textContent = player;
-            if (player = playerOne.playerMark) {
+            boardIndexArr[availSpots.indexOf(availSpots[i])].textContent = player;
+
+            if (player === playerOne.playerMark) {
                 let result = minimax(playerTwo.playerMark);
                 move.score = result.score;
             } else {
                 let result = minimax(playerOne.playerMark);
                 move.score = result.score;
             }
-            boardIndexArr[i] = move.index;
+            boardIndexArr[availSpots.indexOf(availSpots[i])] = move.index;
             moves.push(move);
         }
 
